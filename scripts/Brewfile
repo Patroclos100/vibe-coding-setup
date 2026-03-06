@@ -1,0 +1,13 @@
+tap "anomalyco/tap"
+
+brew "git"
+brew "node"
+brew "pnpm"
+brew "ripgrep"
+brew "jq"
+brew "fd"
+brew "direnv"
+brew "gh"
+brew "anomalyco/tap/opencode"
+
+cask "visual-studio-code"

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "share": "disabled",
+  "autoupdate": false,
+  "theme": "system",
+  "instructions": [
+    "./AGENTS.md",
+    "./.ai/specs/architecture.md",
+    "./.ai/specs/ui-rules.md"
+  ],
+  "default_agent": "plan",
+  "permission": {
+    "bash": "ask",
+    "edit": "ask",
+    "webfetch": "ask",
+    "write": "allow",
+    "read": "allow"
+  },
+  "deny": [
+    "bash:rm -rf *",
+    "bash:sudo *",
+    "bash:git push *",
+    "bash:git reset --hard *",
+    "bash:git clean -fd*"
+  ],
+  "watcher": {
+    "ignore": [
+      "**/.git/**",
+      "**/node_modules/**",
+      "**/.svelte-kit/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.env*"
+    ]
+  },
+  "agent": {
+    "plan": {
+      "description": "Analyse, planning and risk mapping",
+      "prompt": "Read AGENTS.md, requirements.md and relevant files first. Produce a precise plan with assumptions, risks and the smallest recommended first increment. Implement only when explicitly requested."
+    },
+    "build": {
+      "description": "Small pragmatic implementation steps",
+      "prompt": "Work in small increments. Prefer the simplest functional solution. Avoid new dependencies and unnecessary abstraction."
+    },
+    "review": {
+      "description": "Critical quality review with minimal corrections",
+      "prompt": "Check for build risks, duplicated logic, weak naming, UI breaks and avoidable complexity. Propose only small, safe corrections."
+    }
+  }
+}
