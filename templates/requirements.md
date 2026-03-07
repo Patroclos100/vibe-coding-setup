@@ -1,29 +1,43 @@
 # Requirements
 
-## Goal
-Describe the target app outcome in one concise paragraph.
+## Business Goal
+Describe the business outcome in one sentence.
 
-## Users
-List the main user roles.
+## Primary User
+Who uses the software first?
 
-## Core Features
-List version-1 features only.
+## Problem Statement
+What problem does the user face today?
 
-## Non-Goals
-List what version 1 explicitly excludes.
+## Version 1 Scope
+List the features that must exist in version 1.
 
-## UX Principles
-Keep flows simple, readable, and fast.
+## Out of Scope
+List features that must not be implemented now.
+
+## User Journey
+Describe the user flow from start to finish.
+
+## Acceptance Criteria
+Write concrete statements in the form:
+- Given ...
+- When ...
+- Then ...
+
+## Key Data Objects
+List important entities and their essential fields.
+
+## Error Cases
+List expected failure scenarios and desired behavior.
+
+## Security / Privacy Constraints
+List any access, data retention, privacy, or compliance constraints.
+
+## UI Constraints
+List layout, accessibility, responsiveness, and usability requirements.
 
 ## Technical Constraints
-Default stack:
-- SvelteKit
-- TypeScript
-- Tailwind
-- pnpm
+List mandated stack, hosting, integration, or environment constraints.
 
-## Quality Requirements
-- Build passes
-- TypeScript is clean
-- Core flow is understandable
-- No unnecessary frameworks are added
+## Done Criteria
+Describe what must be true for the first release to be considered done.

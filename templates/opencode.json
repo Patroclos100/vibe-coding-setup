@@ -1,50 +1,140 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "share": "disabled",
-  "autoupdate": false,
-  "theme": "system",
+  "model": "github-copilot/claude-sonnet-4",
+  "share": "manual",
+  "default_agent": "vc-orchestrator",
   "instructions": [
-    "./AGENTS.md",
-    "./.ai/specs/architecture.md",
-    "./.ai/specs/ui-rules.md"
+    "AGENTS.md",
+    "requirements.md",
+    ".ai/contracts/*.md",
+    ".ai/specs/*.md",
+    ".ai/workflows/*.md",
+    ".ai/agents/*.md",
+    ".ai/review/*.md"
   ],
-  "default_agent": "plan",
   "permission": {
-    "bash": "ask",
-    "edit": "ask",
-    "webfetch": "ask",
+    "bash": "allow",
+    "edit": "allow",
     "write": "allow",
-    "read": "allow"
-  },
-  "deny": [
-    "bash:rm -rf *",
-    "bash:sudo *",
-    "bash:git push *",
-    "bash:git reset --hard *",
-    "bash:git clean -fd*"
-  ],
-  "watcher": {
-    "ignore": [
-      "**/.git/**",
-      "**/node_modules/**",
-      "**/.svelte-kit/**",
-      "**/dist/**",
-      "**/build/**",
-      "**/.env*"
-    ]
+    "webfetch": "deny"
   },
   "agent": {
-    "plan": {
-      "description": "Analyse, planning and risk mapping",
-      "prompt": "Read AGENTS.md, requirements.md and relevant files first. Produce a precise plan with assumptions, risks and the smallest recommended first increment. Implement only when explicitly requested."
+    "vc-orchestrator": {
+      "mode": "primary",
+      "description": "Main workflow orchestrator for deterministic VibeCoding. Uses planner, validator, dependency, implementation, test, debug, refactor, and release subagents in a bounded sequence.",
+      "prompt": "{file:.opencode/prompts/vc-orchestrator.md}",
+      "steps": 20,
+      "temperature": 0,
+      "permission": {
+        "task": {
+          "*": "deny",
+          "vc-*": "allow"
+        }
+      }
     },
-    "build": {
-      "description": "Small pragmatic implementation steps",
-      "prompt": "Work in small increments. Prefer the simplest functional solution. Avoid new dependencies and unnecessary abstraction."
+    "vc-planner": {
+      "mode": "subagent",
+      "hidden": true,
+      "description": "Normalizes requests, reads specs and workflows, and writes bounded plans without coding.",
+      "prompt": "{file:.opencode/prompts/vc-planner.md}",
+      "tools": {
+        "bash": false,
+        "write": true,
+        "edit": true
+      },
+      "steps": 8,
+      "temperature": 0
     },
-    "review": {
-      "description": "Critical quality review with minimal corrections",
-      "prompt": "Check for build risks, duplicated logic, weak naming, UI breaks and avoidable complexity. Propose only small, safe corrections."
+    "vc-architecture-validator": {
+      "mode": "subagent",
+      "hidden": true,
+      "description": "Checks proposed and implemented changes against architecture rules and folder/layer boundaries.",
+      "prompt": "{file:.opencode/prompts/vc-architecture-validator.md}",
+      "tools": {
+        "bash": false,
+        "write": false,
+        "edit": false
+      },
+      "steps": 6,
+      "temperature": 0
+    },
+    "vc-dependency-manager": {
+      "mode": "subagent",
+      "hidden": true,
+      "description": "Approves or rejects new dependencies using the dependency policy.",
+      "prompt": "{file:.opencode/prompts/vc-dependency-manager.md}",
+      "tools": {
+        "bash": false,
+        "write": false,
+        "edit": false
+      },
+      "steps": 6,
+      "temperature": 0
+    },
+    "vc-code-generator": {
+      "mode": "subagent",
+      "hidden": true,
+      "description": "Implements the smallest complete increment from validated plans and specs.",
+      "prompt": "{file:.opencode/prompts/vc-code-generator.md}",
+      "tools": {
+        "bash": true,
+        "write": true,
+        "edit": true
+      },
+      "steps": 14,
+      "temperature": 0
+    },
+    "vc-test-generator": {
+      "mode": "subagent",
+      "hidden": true,
+      "description": "Adds minimal sufficient tests for the current increment and records test intent.",
+      "prompt": "{file:.opencode/prompts/vc-test-generator.md}",
+      "tools": {
+        "bash": true,
+        "write": true,
+        "edit": true
+      },
+      "steps": 10,
+      "temperature": 0
+    },
+    "vc-debugger": {
+      "mode": "subagent",
+      "hidden": true,
+      "description": "Classifies failures and applies the smallest correct repair, then reruns targeted checks.",
+      "prompt": "{file:.opencode/prompts/vc-debugger.md}",
+      "tools": {
+        "bash": true,
+        "write": true,
+        "edit": true
+      },
+      "steps": 12,
+      "temperature": 0
+    },
+    "vc-refactorer": {
+      "mode": "subagent",
+      "hidden": true,
+      "description": "Performs bounded, evidence-based refactors without changing behavior.",
+      "prompt": "{file:.opencode/prompts/vc-refactorer.md}",
+      "tools": {
+        "bash": true,
+        "write": true,
+        "edit": true
+      },
+      "steps": 10,
+      "temperature": 0
+    },
+    "vc-release-reviewer": {
+      "mode": "subagent",
+      "hidden": true,
+      "description": "Runs final release checks and architecture review, then updates review artifacts.",
+      "prompt": "{file:.opencode/prompts/vc-release-reviewer.md}",
+      "tools": {
+        "bash": true,
+        "write": true,
+        "edit": true
+      },
+      "steps": 8,
+      "temperature": 0
     }
   }
 }

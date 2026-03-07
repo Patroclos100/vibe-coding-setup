@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeuo pipefail
+IFS=$'\n\t'
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -15,8 +16,7 @@ FAILURES=0
 WARNINGS=0
 
 check_cmd() {
-  local cmd="$1"
-  local label="${2:-$1}"
+  local cmd="$1" label="${2:-$1}"
   if command -v "$cmd" >/dev/null 2>&1; then
     ok "$label found: $(command -v "$cmd")"
   else
@@ -30,8 +30,8 @@ check_file() {
   if [[ -f "$file" ]]; then
     ok "File exists: $file"
   else
-    warn "File missing: $file"
-    WARNINGS=$((WARNINGS+1))
+    fail "File missing: $file"
+    FAILURES=$((FAILURES+1))
   fi
 }
 
@@ -40,7 +40,22 @@ check_dir() {
   if [[ -d "$dir" ]]; then
     ok "Directory exists: $dir"
   else
-    warn "Directory missing: $dir"
+    fail "Directory missing: $dir"
+    FAILURES=$((FAILURES+1))
+  fi
+}
+
+check_json_expr() {
+  local file="$1" expr="$2" label="$3"
+  if [[ ! -f "$file" ]]; then
+    fail "$label (config missing: $file)"
+    FAILURES=$((FAILURES+1))
+    return
+  fi
+  if jq -e "$expr" "$file" >/dev/null 2>&1; then
+    ok "$label"
+  else
+    warn "$label not satisfied"
     WARNINGS=$((WARNINGS+1))
   fi
 }
@@ -50,7 +65,7 @@ check_vscode_ext() {
   if command -v code >/dev/null 2>&1 && code --list-extensions | grep -qi "^${ext}$"; then
     ok "VS Code extension installed: $ext"
   else
-    warn "VS Code extension missing: $ext"
+    warn "VS Code extension missing or code CLI unavailable: $ext"
     WARNINGS=$((WARNINGS+1))
   fi
 }
@@ -67,25 +82,66 @@ check_cmd gh GitHub CLI
 check_cmd opencode OpenCode
 check_cmd direnv direnv
 check_cmd code "VS Code CLI"
+check_cmd python3 Python
 
-section "Global directories"
+section "Framework directories"
 check_dir "$HOME/dev"
 check_dir "$HOME/ai"
+check_dir "$HOME/ai/templates"
+check_dir "$HOME/ai/templates/.ai"
+check_dir "$HOME/ai/templates/.ai/agents"
+check_dir "$HOME/ai/templates/.ai/contracts"
+check_dir "$HOME/ai/templates/.ai/prompts"
+check_dir "$HOME/ai/templates/.ai/specs"
+check_dir "$HOME/ai/templates/.ai/state"
+check_dir "$HOME/ai/templates/.ai/workflows"
+check_dir "$HOME/ai/templates/.ai/review"
+check_dir "$HOME/ai/templates/.opencode"
+check_dir "$HOME/ai/templates/.opencode/commands"
+check_dir "$HOME/ai/templates/.opencode/prompts"
+check_dir "$HOME/ai/framework-docs"
 check_dir "$HOME/tools"
-check_dir "$HOME/.config/opencode"
-check_dir "$HOME/.config/opencode/commands"
 
-section "Global templates"
+section "Framework files"
 check_file "$HOME/ai/templates/AGENTS.md"
 check_file "$HOME/ai/templates/requirements.md"
 check_file "$HOME/ai/templates/.env.example"
 check_file "$HOME/ai/templates/opencode.json"
-check_file "$HOME/ai/specs/architecture.md"
-check_file "$HOME/ai/specs/ui-rules.md"
-check_file "$HOME/ai/review/release-checklist.md"
-check_file "$HOME/ai/prompts/feature-small.md"
-check_file "$HOME/ai/prompts/feature-large.md"
-check_file "$HOME/ai/prompts/refactor.md"
+check_file "$HOME/ai/templates/.ai/contracts/done-criteria.md"
+check_file "$HOME/ai/templates/.ai/contracts/dependency-policy.md"
+check_file "$HOME/ai/templates/.ai/specs/architecture.md"
+check_file "$HOME/ai/templates/.ai/specs/product-spec.md"
+check_file "$HOME/ai/templates/.ai/specs/test-strategy.md"
+check_file "$HOME/ai/templates/.ai/workflows/feature-workflow.md"
+check_file "$HOME/ai/templates/.ai/workflows/bugfix-workflow.md"
+check_file "$HOME/ai/templates/.ai/agents/code-generator.md"
+check_file "$HOME/ai/templates/.ai/agents/debug-agent.md"
+check_file "$HOME/ai/templates/.ai/review/release-checklist.md"
+check_file "$HOME/ai/templates/.opencode/commands/intake.md"
+check_file "$HOME/ai/templates/.opencode/commands/plan-feature.md"
+check_file "$HOME/ai/templates/.opencode/commands/build-small.md"
+check_file "$HOME/ai/templates/.opencode/commands/build-large.md"
+check_file "$HOME/ai/templates/.opencode/commands/fix.md"
+check_file "$HOME/ai/templates/.opencode/commands/refactor-safe.md"
+check_file "$HOME/ai/templates/.opencode/commands/review-release.md"
+check_file "$HOME/ai/templates/.opencode/commands/status.md"
+check_file "$HOME/ai/templates/.opencode/prompts/vc-orchestrator.md"
+check_file "$HOME/ai/templates/.opencode/prompts/vc-planner.md"
+check_file "$HOME/tools/new-ai-app.sh"
+check_file "$HOME/tools/check-current-setup.sh"
+check_file "$HOME/tools/setup-opencode-commands.sh"
+
+section "OpenCode global fallback"
+check_dir "$HOME/.config/opencode"
+check_dir "$HOME/.config/opencode/commands"
+check_dir "$HOME/.config/opencode/prompts"
+check_file "$HOME/.config/opencode/opencode.json"
+check_file "$HOME/.config/opencode/commands/intake.md"
+check_file "$HOME/.config/opencode/commands/build-small.md"
+check_file "$HOME/.config/opencode/prompts/vc-orchestrator.md"
+check_json_expr "$HOME/.config/opencode/opencode.json" '.enabled_providers | index("github-copilot") != null' 'GitHub Copilot enabled in global OpenCode config'
+check_json_expr "$HOME/.config/opencode/opencode.json" '.agent["vc-orchestrator"].mode == "primary"' 'vc-orchestrator configured globally'
+check_json_expr "$HOME/.config/opencode/opencode.json" '.agent["vc-planner"].mode == "subagent"' 'vc-planner configured globally'
 
 section "VS Code extensions"
 check_vscode_ext "GitHub.copilot"
