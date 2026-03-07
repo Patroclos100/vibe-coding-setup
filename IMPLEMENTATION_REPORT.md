@@ -1,5 +1,7 @@
 # Implementation Report
 
+This report records the concrete work packages that were implemented in the repository. It remains part of the documentation because third-party readers need the earlier hardening steps, not just the latest documentation work.
+
 ## Work Package 1 — State Architecture Hardening
 Role assumed: framework state-model architect.
 
@@ -71,12 +73,64 @@ Validation:
 
 Result: passed.
 
+## Work Package 6 — Machine-Readable Runtime Contracts
+Role assumed: AI runtime contracts architect.
+
+Implemented:
+- `templates/.ai/contracts/runtime-output.schema.json`
+- `templates/.ai/contracts/runtime-output.example.json`
+- `templates/.ai/contracts/workflow-state.schema.json`
+- `templates/.ai/contracts/prompt-registry.json`
+- `templates/.opencode/prompts/vc-runtime-rules.md`
+- stricter JSON-only runtime behavior across runtime commands
+
+Validation:
+- validator confirms schema file presence and scenario compatibility
+- runtime assets reference the shared runtime rules and machine-readable contracts
+
+Result: passed.
+
+## Work Package 7 — Regression Hardening
+Role assumed: framework regression and contract-testing engineer.
+
+Implemented:
+- positive and negative schema scenarios under `framework-tests/scenarios/`
+- golden-run traces for API, web, and automation
+- fixture manifests per stack
+- command-to-agent contract mapping
+- stricter cross-checks between aggregate workflow state and per-file state
+
+Validation:
+- `python3 scripts/validate-framework.py` passes with 0 failures and 0 warnings
+- scaffold smoke test still passes
+
+Result: passed.
+
+## Work Package 8 — Documentation System Hardening
+Role assumed: software architecture documentation lead.
+
+Implemented:
+- complete `docs/` information architecture for runtime, stacks, framework testing, and design decisions
+- explicit separation between runtime features and framework-test features
+- implementation history added so old and new framework changes remain traceable
+- contributor guidance added for future changes to prompts, commands, schemas, and stacks
+
+Validation:
+- all referenced documentation files exist
+- documentation structure now mirrors the implemented architecture
+- the validator and core scripts still pass after documentation changes
+
+Result: passed.
+
 ## Critical Residual Assessment
 What is validated well:
 - repository integrity
 - template and command consistency
 - stack pack presence and shape
+- machine-readable runtime contracts
+- schema scenarios and golden-run assets
 - offline scaffold creation
+- documentation traceability across all hardening phases
 
 What is not fully proven in this environment:
 - real OpenCode runtime behavior with live subagent execution

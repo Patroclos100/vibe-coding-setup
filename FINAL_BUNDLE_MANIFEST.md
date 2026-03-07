@@ -1,10 +1,30 @@
-# Final bundle manifest
+# Final Bundle Manifest
 
-This bundle consolidates the final state of the relevant files produced across the framework upgrade.
+This bundle consolidates the final state of the framework after all implementation and documentation hardening steps.
 
-## Included files
-
+## Documentation
 - `README.md`
+- `IMPLEMENTATION_REPORT.md`
+- `docs/README.md`
+- `docs/quickstart.md`
+- `docs/architecture.md`
+- `docs/design-decisions.md`
+- `docs/implementation-history.md`
+- `docs/contributor-guide.md`
+- `docs/runtime/overview.md`
+- `docs/runtime/commands.md`
+- `docs/runtime/runtime-output.md`
+- `docs/runtime/workflow-state.md`
+- `docs/runtime/agent-runtime.md`
+- `docs/stacks/overview.md`
+- `docs/stacks/sveltekit-web.md`
+- `docs/stacks/fastapi-api.md`
+- `docs/stacks/python-automation.md`
+- `docs/framework-testing/overview.md`
+- `docs/framework-testing/validator.md`
+- `docs/framework-testing/golden-runs.md`
+- `docs/framework-testing/fixtures.md`
+- `docs/framework-testing/failure-tests.md`
 - `docs/01-overview.md`
 - `docs/02-installation.md`
 - `docs/03-create-project.md`
@@ -13,62 +33,34 @@ This bundle consolidates the final state of the relevant files produced across t
 - `docs/06-framework-architecture.md`
 - `docs/07-troubleshooting.md`
 - `docs/08-extending-framework.md`
+
+## Runtime template payload
+- `templates/AGENTS.md`
+- `templates/requirements.md`
+- `templates/opencode.json`
+- `templates/.env.example`
+- `templates/.ai/contracts/*`
+- `templates/.ai/specs/*`
+- `templates/.ai/workflows/*`
+- `templates/.ai/agents/*`
+- `templates/.ai/review/*`
+- `templates/.ai/stacks/*`
+- `templates/.ai/state/*`
+- `templates/.ai/prompts/*`
+- `templates/.opencode/commands/*`
+- `templates/.opencode/prompts/*`
+
+## Framework verification assets
+- `framework-tests/README.md`
+- `framework-tests/contracts/*`
+- `framework-tests/fixtures/*`
+- `framework-tests/scenarios/*`
+- `framework-tests/golden-runs/*`
+- `scripts/validate-framework.py`
+
+## Setup and scaffolding scripts
 - `scripts/Brewfile`
 - `scripts/check-current-setup.sh`
 - `scripts/new-ai-app.sh`
 - `scripts/setup-opencode-commands.sh`
 - `scripts/setup-tools.sh`
-- `templates/.ai/agents/architecture-validator.md`
-- `templates/.ai/agents/code-generator.md`
-- `templates/.ai/agents/debug-agent.md`
-- `templates/.ai/agents/dependency-manager.md`
-- `templates/.ai/agents/refactoring-agent.md`
-- `templates/.ai/agents/test-generator.md`
-- `templates/.ai/contracts/dependency-policy.md`
-- `templates/.ai/contracts/done-criteria.md`
-- `templates/.ai/contracts/output-schema.md`
-- `templates/.ai/contracts/safety-policy.md`
-- `templates/.ai/prompts/change-summary.md`
-- `templates/.ai/prompts/feature-implementation.md`
-- `templates/.ai/prompts/intake-normalizer.md`
-- `templates/.ai/prompts/release-review.md`
-- `templates/.ai/prompts/self-heal-loop.md`
-- `templates/.ai/review/architectural-debt.md`
-- `templates/.ai/review/release-checklist.md`
-- `templates/.ai/specs/architecture.md`
-- `templates/.ai/specs/domain-model.md`
-- `templates/.ai/specs/error-model.md`
-- `templates/.ai/specs/product-spec.md`
-- `templates/.ai/specs/test-strategy.md`
-- `templates/.ai/specs/ui-rules.md`
-- `templates/.ai/state/changed-files.md`
-- `templates/.ai/state/current-task.md`
-- `templates/.ai/state/debug-log.md`
-- `templates/.ai/state/plan.md`
-- `templates/.ai/state/risks.md`
-- `templates/.ai/state/test-results.md`
-- `templates/.ai/workflows/bugfix-workflow.md`
-- `templates/.ai/workflows/feature-workflow.md`
-- `templates/.ai/workflows/refactor-workflow.md`
-- `templates/.ai/workflows/release-workflow.md`
-- `templates/.env.example`
-- `templates/.opencode/commands/build-large.md`
-- `templates/.opencode/commands/build-small.md`
-- `templates/.opencode/commands/fix.md`
-- `templates/.opencode/commands/intake.md`
-- `templates/.opencode/commands/plan-feature.md`
-- `templates/.opencode/commands/refactor-safe.md`
-- `templates/.opencode/commands/review-release.md`
-- `templates/.opencode/commands/status.md`
-- `templates/.opencode/prompts/vc-architecture-validator.md`
-- `templates/.opencode/prompts/vc-code-generator.md`
-- `templates/.opencode/prompts/vc-debugger.md`
-- `templates/.opencode/prompts/vc-dependency-manager.md`
-- `templates/.opencode/prompts/vc-orchestrator.md`
-- `templates/.opencode/prompts/vc-planner.md`
-- `templates/.opencode/prompts/vc-refactorer.md`
-- `templates/.opencode/prompts/vc-release-reviewer.md`
-- `templates/.opencode/prompts/vc-test-generator.md`
-- `templates/AGENTS.md`
-- `templates/opencode.json`
-- `templates/requirements.md`

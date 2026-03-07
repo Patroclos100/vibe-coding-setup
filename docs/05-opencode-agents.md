@@ -1,4 +1,8 @@
 # OpenCode Agents
 
-The runtime layer is `.opencode/commands/*` and `.opencode/prompts/*`.
-Design-layer mirrors under `.ai/prompts/*` are non-runtime references only.
+Detailed runtime-agent documentation now lives in `docs/runtime/agent-runtime.md`.
+
+Key point:
+- `.opencode/` is the runtime source of truth
+- `.ai/prompts/` are design-layer mirrors
+- shared runtime behavior is centralized in `vc-runtime-rules.md`
