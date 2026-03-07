@@ -30,9 +30,18 @@ Always prefer the following sources over conversational guesswork:
 - `.ai/specs/test-strategy.md`
 - `.ai/contracts/done-criteria.md`
 - `.ai/contracts/dependency-policy.md`
+- `.ai/contracts/check-matrix.md`
+- `.ai/contracts/state-management.md`
+- `.ai/contracts/acceptance-traceability.md`
 - `.ai/workflows/*.md`
 - `.ai/agents/*.md`
-- `.ai/state/*.md`
+- `.ai/stacks/*/stack.json`
+- `.ai/state/*.json`
+- `.ai/review/*.md`
+
+## Runtime source of truth
+- `.opencode/commands/*` and `.opencode/prompts/*` are the runtime prompt layer.
+- `.ai/prompts/*` are design references only and must not diverge in intent from the runtime layer.
 
 ## Command Enforcement
 Custom commands in `.opencode/commands/` are the default entrypoints.
@@ -54,7 +63,7 @@ Custom commands in `.opencode/commands/` are the default entrypoints.
 - **DO NOT** mark work complete without relevant automated checks.
 - **DO NOT** suppress errors, remove assertions, or weaken valid tests to get green output.
 - **DO NOT** treat a broad feature request as permission for a whole-project rewrite.
-- **DO NOT** leave state files stale after meaningful progress.
+- **DO NOT** leave JSON state files stale after meaningful progress.
 
 ## Agent Roles and Handovers
 
@@ -62,44 +71,44 @@ Custom commands in `.opencode/commands/` are the default entrypoints.
 Purpose: convert ambiguous requests into bounded implementation intent.
 Primary artifacts:
 - `.ai/specs/product-spec.md`
-- `.ai/state/current-task.md`
-- `.ai/state/risks.md`
+- `.ai/state/current-task.json`
+- `.ai/state/risks.json`
 
 ### 2. Architecture Validator
 Purpose: block architecture drift before and after implementation.
 Primary artifacts:
-- `.ai/state/plan.md`
+- `.ai/state/plan.json`
 - `.ai/review/architectural-debt.md`
 
 ### 3. Dependency Manager
 Purpose: explicitly approve or reject package additions.
 Primary artifacts:
 - `.ai/contracts/dependency-policy.md`
-- `.ai/state/plan.md`
+- `.ai/state/plan.json`
 
 ### 4. Code Generator
 Purpose: implement the smallest complete increment that fits the architecture.
 Primary artifacts:
 - changed source files
-- `.ai/state/changed-files.md`
+- `.ai/state/changed-files.json`
 
 ### 5. Test Generator
 Purpose: create deterministic tests for the current increment.
 Primary artifacts:
 - test files
-- `.ai/state/test-results.md`
+- `.ai/state/test-results.json`
 
 ### 6. Debug Agent
 Purpose: minimally repair build, type, test, path, logic, and configuration failures.
 Primary artifacts:
-- `.ai/state/debug-log.md`
-- `.ai/state/test-results.md`
+- `.ai/state/debug-log.json`
+- `.ai/state/test-results.json`
 
 ### 7. Refactoring Agent
 Purpose: improve structure only when there is evidence of duplication, ambiguity, or rule violation.
 Primary artifacts:
 - `.ai/review/architectural-debt.md`
-- `.ai/state/changed-files.md`
+- `.ai/state/changed-files.json`
 
 ### 8. Release Reviewer
 Purpose: run final done-criteria and architecture gate.
@@ -123,6 +132,7 @@ Work is complete only when all of the following are true:
 - known risks are documented
 - out-of-scope items are listed
 - architecture and dependency rules were not violated
+- acceptance criteria are traced to automated verification
 
 ## Escalation Rule
 If the request conflicts with specs, architecture, dependency policy, or done criteria, stop and report the conflict explicitly. Do not resolve it by improvisation.

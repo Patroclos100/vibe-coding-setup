@@ -1,0 +1,22 @@
+{
+  "task_id": "TASK-0001",
+  "schema_version": "1.0",
+  "workflow": "feature-workflow",
+  "bounded_increment": {
+    "id": "INC-001",
+    "title": "Increment 1",
+    "summary": "Smallest valuable increment"
+  },
+  "allowed_paths": [],
+  "candidate_files": [],
+  "mandatory_checks": [],
+  "acceptance_criteria": [],
+  "dependencies": [],
+  "retry_budget": {
+    "syntax": 2,
+    "tests": 2,
+    "refactor": 1,
+    "total": 5
+  },
+  "updated_at": "1970-01-01T00:00:00Z"
+}

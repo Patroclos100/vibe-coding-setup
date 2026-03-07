@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "agent": "vc-orchestrator",
+  "command": "/intake",
+  "status": "success",
+  "current_scope": {
+    "summary": "Normalize request for FastAPI customer notes API",
+    "in_scope": [
+      "Clarify V1 scope"
+    ],
+    "out_of_scope": [
+      "Implementation"
+    ]
+  },
+  "inputs_used": {
+    "contracts": [
+      ".ai/contracts/output-schema.md",
+      ".ai/contracts/check-matrix.md"
+    ],
+    "specs": [
+      ".ai/specs/product-spec.md"
+    ],
+    "state_files": [
+      ".ai/state/current-task.json",
+      ".ai/state/plan.json"
+    ],
+    "stack": "fastapi-api"
+  },
+  "files": {
+    "to_change": [
+      ".ai/state/plan.json"
+    ],
+    "changed": []
+  },
+  "acceptance": {
+    "criteria_ids": [
+      "AC-001"
+    ],
+    "coverage": [
+      {
+        "criterion_id": "AC-001",
+        "planned_verification": [
+          "typecheck",
+          "smoke"
+        ],
+        "status": "planned"
+      }
+    ]
+  },
+  "risks": {
+    "assumptions": [
+      "No new dependencies needed"
+    ],
+    "open": [
+      {
+        "id": "RISK-001",
+        "severity": "low",
+        "status": "open",
+        "summary": "Scope could expand"
+      }
+    ]
+  },
+  "validation": {
+    "required_checks": [
+      "pnpm check",
+      "pnpm build"
+    ],
+    "executed_checks": [],
+    "results": []
+  },
+  "state_updates": [
+    ".ai/state/current-task.json",
+    ".ai/state/plan.json",
+    ".ai/state/risks.json"
+  ],
+  "remaining_out_of_scope": [
+    "Release review"
+  ],
+  "next_action": "Run /plan-feature"
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "agent": "vc-release-reviewer",
+  "command": "/review-release",
+  "status": "success",
+  "current_scope": {
+    "summary": "Confirm release readiness for SvelteKit issue tracker",
+    "in_scope": [
+      "Done criteria",
+      "Architecture review"
+    ],
+    "out_of_scope": [
+      "New features"
+    ]
+  },
+  "inputs_used": {
+    "contracts": [
+      ".ai/contracts/output-schema.md",
+      ".ai/contracts/check-matrix.md"
+    ],
+    "specs": [
+      ".ai/specs/product-spec.md"
+    ],
+    "state_files": [
+      ".ai/state/current-task.json",
+      ".ai/state/plan.json"
+    ],
+    "stack": "sveltekit-web"
+  },
+  "files": {
+    "to_change": [
+      ".ai/state/plan.json"
+    ],
+    "changed": []
+  },
+  "acceptance": {
+    "criteria_ids": [
+      "AC-001"
+    ],
+    "coverage": [
+      {
+        "criterion_id": "AC-001",
+        "planned_verification": [
+          "typecheck",
+          "smoke"
+        ],
+        "status": "planned"
+      }
+    ]
+  },
+  "risks": {
+    "assumptions": [
+      "No new dependencies needed"
+    ],
+    "open": [
+      {
+        "id": "RISK-001",
+        "severity": "low",
+        "status": "open",
+        "summary": "Scope could expand"
+      }
+    ]
+  },
+  "validation": {
+    "required_checks": [
+      "done-criteria",
+      "release-review"
+    ],
+    "executed_checks": [
+      "done-criteria",
+      "release-review"
+    ],
+    "results": [
+      {
+        "check_id": "done-criteria",
+        "status": "passed",
+        "details": "Mandatory checks passed"
+      },
+      {
+        "check_id": "release-review",
+        "status": "passed",
+        "details": "No blocking architecture issues"
+      }
+    ]
+  },
+  "state_updates": [
+    ".ai/review/release-checklist.md",
+    ".ai/state/workflow-state.json"
+  ],
+  "remaining_out_of_scope": [],
+  "next_action": "Mark increment done"
+}

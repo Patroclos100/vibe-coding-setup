@@ -1,27 +1,24 @@
 ---
-description: Perform an evidence-based, behavior-preserving refactor
+description: Perform an evidence-based, behavior-preserving refactor only
 agent: vc-orchestrator
 ---
 
-!!! SAFE REFACTOR ONLY !!!
+Refactor is allowed only when at least one evidence condition is true:
+- duplication exists in 2 or more places
+- an architecture rule is violated
+- a module is oversized or ambiguous
+- test fragility is caused by structure
 
-Use this exact sequence:
-1. Load `AGENTS.md`
-2. Load `.ai/workflows/refactor-workflow.md`
-3. Bound the refactor scope with `vc-planner`
-4. Validate the reason for refactor with `vc-architecture-validator`
-5. Invoke `vc-refactorer`
-6. Run relevant checks
-7. Update `.ai/review/architectural-debt.md` and `.ai/state/changed-files.md`
+Required flow:
+1. load `.ai/contracts/output-schema.md`
+2. load `.ai/workflows/refactor-workflow.md`
+3. invoke `vc-architecture-validator` then `vc-refactorer`
+4. rerun the full mandatory check set for the active stack
+5. update `.ai/state/changed-files.json`, `.ai/state/test-results.json`, `.ai/review/architectural-debt.md`
 
-Refactor target:
-$ARGUMENTS
+Output must follow the Output Schema Contract.
 
-Required chat output:
-- evidence for refactor
-- files changed
-- behavior preserved
-- checks run and results
-- remaining debt
 
-!!! NO STYLE-ONLY CHURN !!!
+Runtime output rule:
+- Return exactly one JSON object that conforms to `.ai/contracts/runtime-output.schema.json`.
+- Do not add markdown, narrative, or commentary outside the JSON object.

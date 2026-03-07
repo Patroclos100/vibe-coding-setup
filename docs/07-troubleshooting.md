@@ -1,20 +1,4 @@
-
 # Troubleshooting
 
-## Commands not working
-
-Check:
-
-.opencode/commands
-
-## Copilot not connected
-
-Run:
-
-/connect
-
-## Setup issues
-
-Run:
-
-~/tools/check-current-setup.sh
+If commands drift from expectations, run `python3 scripts/validate-framework.py` first.
+Then inspect `.ai/state/test-results.json` and `.ai/state/debug-log.json`.

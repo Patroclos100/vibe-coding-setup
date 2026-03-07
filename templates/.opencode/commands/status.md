@@ -1,24 +1,24 @@
 ---
-description: Summarize current task, state, changed files, risks, and blockers
+description: Summarize current machine-readable state for the active task
 agent: vc-orchestrator
 ---
 
-Read and summarize:
-- `.ai/state/current-task.md`
-- `.ai/state/plan.md`
-- `.ai/state/changed-files.md`
-- `.ai/state/test-results.md`
-- `.ai/state/debug-log.md`
-- `.ai/state/risks.md`
-- `.ai/review/release-checklist.md`
+Read only:
+- `.ai/state/current-task.json`
+- `.ai/state/plan.json`
+- `.ai/state/risks.json`
+- `.ai/state/changed-files.json`
+- `.ai/state/test-results.json`
+- `.ai/state/debug-log.json`
 
-Focus:
-$ARGUMENTS
+Output must follow the Output Schema Contract and include:
+- current task status
+- active stack
+- mandatory checks summary
+- changed files summary
+- blockers and next action
 
-Return:
-- current objective
-- progress made
-- changed files
-- checks status
-- blockers
-- next best command to run
+
+Runtime output rule:
+- Return exactly one JSON object that conforms to `.ai/contracts/runtime-output.schema.json`.
+- Do not add markdown, narrative, or commentary outside the JSON object.

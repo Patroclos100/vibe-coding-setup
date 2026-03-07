@@ -1,3 +1,3 @@
-# Changed Files
+# Changed Files Summary
 
-Track created, modified, renamed, and deleted files with one-line reasons.
+Read `.ai/state/changed-files.json` for the source of truth.

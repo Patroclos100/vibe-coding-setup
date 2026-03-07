@@ -1,16 +1,4 @@
+# OpenCode Agents
 
-# Agent System
-
-Primary orchestrator:
-
-vc-orchestrator
-
-Sub agents:
-
-planner
-architecture-validator
-dependency-manager
-code-generator
-test-generator
-debug-agent
-refactoring-agent
+The runtime layer is `.opencode/commands/*` and `.opencode/prompts/*`.
+Design-layer mirrors under `.ai/prompts/*` are non-runtime references only.

@@ -1,22 +1,12 @@
 # Test Strategy
 
-## Goal
-Protect critical behavior with the smallest maintainable automated suite.
+All in-scope behavior requires automated verification.
 
-## Minimum Per Increment
-1. one success-path test
-2. one failure-path or validation-path test
-3. one regression-sensitive edge case test
+## Required layers
+- unit tests for business logic
+- integration tests for component or API interaction paths
+- smoke or e2e coverage for the primary user flow
+- build or package validation before completion
 
-## Layer Preference
-- pure logic: unit tests first
-- feature flow: integration-style tests where behavior matters
-- UI: behavior and interaction tests, not implementation trivia
-
-## Avoid
-- brittle snapshots
-- excessive mocking
-- duplicate assertions across layers
-
-## Release Gate
-Critical user journey must have automated verification before release.
+## Traceability rule
+Every acceptance criterion must map to at least one automated verification method and be recorded in `.ai/state/plan.json` and `.ai/state/test-results.json`.

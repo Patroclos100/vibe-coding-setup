@@ -263,16 +263,55 @@ validate_args() {
   [[ "$SMALL_MODEL" == */* ]] || die "Small model must be a full OpenCode model id like provider/model"
 }
 
+bootstrap_sveltekit_offline() {
+  log "==> Bootstrapping offline SvelteKit-compatible skeleton"
+  mkdir -p "$TARGET_DIR/$APP_NAME/src/routes"
+  cat > "$TARGET_DIR/$APP_NAME/package.json" <<EOF
+{
+  "name": "$APP_NAME",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "echo 'Install dependencies before starting dev server'",
+    "build": "echo 'Install dependencies before building'",
+    "check": "echo 'Install dependencies before typechecking'"
+  }
+}
+EOF
+  cat > "$TARGET_DIR/$APP_NAME/svelte.config.js" <<'EOF'
+export default {
+  kit: {}
+};
+EOF
+  cat > "$TARGET_DIR/$APP_NAME/tsconfig.json" <<'EOF'
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext"
+  }
+}
+EOF
+}
+
 bootstrap_sveltekit() {
   log "==> Bootstrapping SvelteKit app"
-  require_cmd node
-  require_cmd "$PACKAGE_MANAGER"
+  if ! command -v node >/dev/null 2>&1 || ! command -v "$PACKAGE_MANAGER" >/dev/null 2>&1; then
+    warn "Node or $PACKAGE_MANAGER not found; using offline skeleton bootstrap"
+    bootstrap_sveltekit_offline
+    return 0
+  fi
 
   local create_args=(create svelte@latest "$APP_NAME" --types ts --template minimal)
   if [[ "$RUN_INSTALL" -eq 0 ]]; then
-    "$PACKAGE_MANAGER" "${create_args[@]}" --no-install
+    if ! "$PACKAGE_MANAGER" "${create_args[@]}" --no-install; then
+      warn "Online bootstrap failed; falling back to offline skeleton"
+      bootstrap_sveltekit_offline
+    fi
   else
-    "$PACKAGE_MANAGER" "${create_args[@]}"
+    if ! "$PACKAGE_MANAGER" "${create_args[@]}"; then
+      warn "Online bootstrap failed; falling back to offline skeleton"
+      bootstrap_sveltekit_offline
+    fi
   fi
 }
 
@@ -317,6 +356,7 @@ ensure_project_structure() {
   mkdir -p \
     "$PROJECT_DIR/src/lib/components" \
     "$PROJECT_DIR/src/lib/components/ui" \
+    "$PROJECT_DIR/src/lib/features" \
     "$PROJECT_DIR/src/lib/server" \
     "$PROJECT_DIR/src/lib/domain" \
     "$PROJECT_DIR/src/lib/services" \
@@ -329,6 +369,23 @@ ensure_project_structure() {
     "$PROJECT_DIR/.opencode/sessions"
 
   write_file_if_missing "$PROJECT_DIR/src/lib/utils/cn.ts" $'export function cn(...parts: Array<string | false | null | undefined>) {\n  return parts.filter(Boolean).join(" ");\n}'
+
+
+  write_file_if_missing "$PROJECT_DIR/src/lib/features/.gitkeep" ''
+
+  if [[ -f "$PROJECT_DIR/package.json" ]]; then
+    python3 - <<'PY' "$PROJECT_DIR/package.json"
+import json, sys
+from pathlib import Path
+path = Path(sys.argv[1])
+data = json.loads(path.read_text(encoding='utf-8'))
+scripts = data.setdefault('scripts', {})
+scripts.setdefault('lint', 'eslint .')
+scripts.setdefault('test:unit', 'vitest run')
+scripts.setdefault('test:smoke', 'vitest run tests/smoke')
+path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+PY
+  fi
 
   write_file_if_missing "$PROJECT_DIR/src/routes/+page.svelte" $'<script lang="ts">\n  const title = "AI-first app";\n  const subtitle = "Bootstrap complete. Fill requirements.md before implementation.";\n</script>\n\n<svelte:head>\n  <title>{title}</title>\n  <meta name="description" content={subtitle} />\n</svelte:head>\n\n<div class="mx-auto max-w-3xl px-6 py-16">\n  <h1 class="text-3xl font-bold tracking-tight">{title}</h1>\n  <p class="mt-4 text-base opacity-80">{subtitle}</p>\n</div>'
 }
@@ -450,6 +507,8 @@ required_instr = [
     '.ai/workflows/*.md',
     '.ai/agents/*.md',
     '.ai/review/*.md',
+    '.ai/stacks/*/README.md',
+    '.ai/stacks/*/stack.json',
 ]
 for item in required_instr:
     if item not in instr:
@@ -579,6 +638,9 @@ postflight_checks() {
   [[ -d "$PROJECT_DIR/.ai/specs" ]] || die ".ai/specs missing after bootstrap"
   [[ -d "$PROJECT_DIR/.ai/workflows" ]] || die ".ai/workflows missing after bootstrap"
   [[ -d "$PROJECT_DIR/.ai/state" ]] || die ".ai/state missing after bootstrap"
+  [[ -d "$PROJECT_DIR/.ai/stacks" ]] || die ".ai/stacks missing after bootstrap"
+  [[ -f "$PROJECT_DIR/.ai/state/current-task.json" ]] || die ".ai/state/current-task.json missing after bootstrap"
+  [[ -f "$PROJECT_DIR/.ai/state/plan.json" ]] || die ".ai/state/plan.json missing after bootstrap"
   [[ -d "$PROJECT_DIR/.opencode/commands" ]] || die ".opencode/commands missing after bootstrap"
   [[ -d "$PROJECT_DIR/.opencode/prompts" ]] || die ".opencode/prompts missing after bootstrap"
 

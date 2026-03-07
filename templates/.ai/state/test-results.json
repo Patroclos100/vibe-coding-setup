@@ -1,0 +1,12 @@
+{
+  "task_id": "TASK-0001",
+  "schema_version": "1.0",
+  "checks": [],
+  "summary": {
+    "passed": 0,
+    "failed": 0,
+    "skipped": 0,
+    "pending": 0
+  },
+  "updated_at": "1970-01-01T00:00:00Z"
+}

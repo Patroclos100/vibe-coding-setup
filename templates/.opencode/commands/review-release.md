@@ -1,26 +1,24 @@
 ---
-description: Run the final architecture and release gate for the current increment
+description: Run the final release gate with acceptance traceability and stack checks
 agent: vc-orchestrator
 ---
 
-!!! FINAL QUALITY GATE !!!
+Required flow:
+1. load `AGENTS.md`
+2. load `.ai/contracts/output-schema.md`, `.ai/contracts/check-matrix.md`, `.ai/contracts/acceptance-traceability.md`
+3. load `.ai/review/release-checklist.md`
+4. inspect `.ai/state/current-task.json`, `.ai/state/plan.json`, `.ai/state/test-results.json`, `.ai/state/changed-files.json`, `.ai/state/risks.json`
+5. invoke `vc-release-reviewer`
 
-Use this exact sequence:
-1. Load `AGENTS.md`
-2. Load `.ai/workflows/release-workflow.md`
-3. Invoke `vc-architecture-validator`
-4. Invoke `vc-release-reviewer`
-5. If structural issues remain, invoke `vc-refactorer` for the minimal necessary correction
-6. Re-run relevant checks
-7. Update `.ai/review/release-checklist.md`
+Reject completion when any of the following is true:
+- mandatory checks are missing or failed
+- in-scope acceptance criteria are not traced to automation
+- blocking risks remain open
+- architecture violations are unresolved
 
-Review focus:
-$ARGUMENTS
+Output must follow the Output Schema Contract.
 
-Required chat output:
-- release gate result: pass, warn, or fail
-- architecture concerns
-- open risks
-- required next actions, if any
 
-!!! DO NOT CLAIM RELEASE-READY WITHOUT CHECK EVIDENCE !!!
+Runtime output rule:
+- Return exactly one JSON object that conforms to `.ai/contracts/runtime-output.schema.json`.
+- Do not add markdown, narrative, or commentary outside the JSON object.

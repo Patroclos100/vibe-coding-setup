@@ -1,3 +1,10 @@
+# Design Reference Only
+
+This file is a design-layer mirror. Runtime behavior is controlled by `.opencode/commands/*`, `.opencode/prompts/*`, and `.ai/contracts/prompt-registry.json`.
+The design layer must not add rules that contradict the runtime layer.
+
+---
+
 # Feature Implementation Prompt
 
 Run this sequence:

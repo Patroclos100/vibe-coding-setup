@@ -1,39 +1,35 @@
 ---
-description: Implement one bounded increment with validation, tests, and debug loop
+description: Implement exactly one bounded increment with tests and validation
 agent: vc-orchestrator
 ---
 
-!!! CRITICAL WORKFLOW !!!
-You must implement only one bounded increment.
+Load and apply in this order:
+1. `AGENTS.md`
+2. `.ai/contracts/output-schema.md`
+3. `.ai/contracts/check-matrix.md`
+4. `.ai/contracts/acceptance-traceability.md`
+5. `.ai/workflows/feature-workflow.md`
+6. active `.ai/stacks/*/stack.json`
+7. invoke `vc-code-generator`, `vc-test-generator`, `vc-architecture-validator`
+8. run mandatory checks from `.ai/state/plan.json`
+9. if checks fail, invoke `vc-debugger`
+10. if structural violations remain, invoke `vc-refactorer`
 
-Use this exact sequence:
-1. Load `AGENTS.md`
-2. Load `.ai/workflows/feature-workflow.md`
-3. Read `.ai/state/plan.md`
-4. Invoke `vc-architecture-validator`
-5. If dependencies are needed, invoke `vc-dependency-manager`
-6. Invoke `vc-code-generator`
-7. Invoke `vc-test-generator`
-8. Run relevant checks
-9. If checks fail, invoke `vc-debugger`
-10. If structure violations remain, invoke `vc-refactorer`
-11. Update:
-    - `.ai/state/changed-files.md`
-    - `.ai/state/test-results.md`
-    - `.ai/state/risks.md`
+Update:
+- `.ai/state/changed-files.json`
+- `.ai/state/test-results.json`
+- `.ai/state/debug-log.json` when failures occur
+- `.ai/review/architectural-debt.md` when debt remains
 
-Task:
-$ARGUMENTS
+Rules:
+- one increment only
+- no broad rewrite
+- no unapproved dependencies
+- no completion without passed mandatory checks
 
-Required constraints:
-- keep scope bounded
-- do not skip tests
-- do not skip architecture validation
-- maximum 3 debug repair attempts per error class
+Output must follow the Output Schema Contract.
 
-Required chat output:
-- what was implemented now
-- changed files
-- checks run and results
-- remaining risks
-- what remains out of scope
+
+Runtime output rule:
+- Return exactly one JSON object that conforms to `.ai/contracts/runtime-output.schema.json`.
+- Do not add markdown, narrative, or commentary outside the JSON object.

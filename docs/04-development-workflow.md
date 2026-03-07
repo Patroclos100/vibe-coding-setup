@@ -1,26 +1,4 @@
-
 # Development Workflow
 
-Use commands only.
-
-Golden path:
-
-/intake
-/plan-feature
-/build-small
-/build-large
-/fix
-/refactor-safe
-/review-release
-/status
-
-Example:
-
-/intake
-→ define feature
-
-/plan-feature
-→ create implementation plan
-
-/build-small
-→ implement feature increment
+Use `/intake` -> `/plan-feature` -> `/build-small` -> `/fix` -> `/review-release`.
+Every command updates `.ai/state/*.json` and must follow the Output Schema Contract.

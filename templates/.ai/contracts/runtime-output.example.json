@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "agent": "vc-planner",
+  "command": "/plan-feature",
+  "status": "success",
+  "current_scope": {
+    "summary": "Plan one bounded increment",
+    "in_scope": [
+      "Define acceptance criteria",
+      "Define mandatory checks"
+    ],
+    "out_of_scope": [
+      "Implementation"
+    ]
+  },
+  "inputs_used": {
+    "contracts": [
+      ".ai/contracts/output-schema.md",
+      ".ai/contracts/check-matrix.md"
+    ],
+    "specs": [
+      ".ai/specs/product-spec.md"
+    ],
+    "state_files": [
+      ".ai/state/current-task.json",
+      ".ai/state/plan.json"
+    ],
+    "stack": "sveltekit-web"
+  },
+  "files": {
+    "to_change": [
+      ".ai/state/current-task.json",
+      ".ai/state/plan.json"
+    ],
+    "changed": []
+  },
+  "acceptance": {
+    "criteria_ids": [
+      "AC-001",
+      "AC-002"
+    ],
+    "coverage": [
+      {
+        "criterion_id": "AC-001",
+        "planned_verification": [
+          "unit",
+          "smoke"
+        ],
+        "status": "planned"
+      }
+    ]
+  },
+  "risks": {
+    "assumptions": [
+      "No new dependency required"
+    ],
+    "open": [
+      {
+        "id": "RISK-001",
+        "severity": "low",
+        "status": "open",
+        "summary": "Schema migration is still pending"
+      }
+    ]
+  },
+  "validation": {
+    "required_checks": [
+      "pnpm check",
+      "pnpm test:unit"
+    ],
+    "executed_checks": [],
+    "results": []
+  },
+  "state_updates": [
+    ".ai/state/current-task.json",
+    ".ai/state/plan.json"
+  ],
+  "remaining_out_of_scope": [
+    "Release review"
+  ],
+  "next_action": "Run /build-small"
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "task": {
+    "task_id": "TASK-0001",
+    "schema_version": "1.0",
+    "title": "Normalize request",
+    "command": "/intake",
+    "status": "running",
+    "active_stack": "sveltekit-web",
+    "workflow": "feature-workflow",
+    "scope": {
+      "summary": "Create an implementation-ready task",
+      "in_scope": [],
+      "out_of_scope": []
+    },
+    "acceptance_criteria_ids": [],
+    "assumptions": [],
+    "notes": [],
+    "next_action": "Define acceptance criteria",
+    "updated_at": "1970-01-01T00:00:00Z"
+  },
+  "plan": {
+    "task_id": "TASK-0001",
+    "schema_version": "1.0",
+    "workflow": "feature-workflow",
+    "bounded_increment": {
+      "id": "INC-001",
+      "title": "Increment 1",
+      "summary": "Smallest valuable increment"
+    },
+    "allowed_paths": [],
+    "candidate_files": [],
+    "mandatory_checks": [],
+    "acceptance_criteria": [],
+    "dependencies": [],
+    "retry_budget": {
+      "syntax": 2,
+      "tests": 2,
+      "refactor": 1,
+      "total": 5
+    },
+    "updated_at": "1970-01-01T00:00:00Z"
+  },
+  "risks": {
+    "task_id": "TASK-0001",
+    "schema_version": "1.0",
+    "risks": [
+      {
+        "id": "RISK-001",
+        "description": "No risks recorded yet",
+        "severity": "low",
+        "status": "open",
+        "owner": "vc-planner",
+        "mitigation": "Refine scope"
+      }
+    ],
+    "updated_at": "1970-01-01T00:00:00Z"
+  },
+  "changed_files": {
+    "task_id": "TASK-0001",
+    "schema_version": "1.0",
+    "files": [],
+    "updated_at": "1970-01-01T00:00:00Z"
+  },
+  "test_results": {
+    "task_id": "TASK-0001",
+    "schema_version": "1.0",
+    "checks": [],
+    "summary": {
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "pending": 0
+    },
+    "updated_at": "1970-01-01T00:00:00Z"
+  },
+  "debug_log": {
+    "task_id": "TASK-0001",
+    "schema_version": "1.0",
+    "entries": [],
+    "retry_counters": {
+      "syntax": 0,
+      "tests": 0,
+      "refactor": 0,
+      "total": -1
+    },
+    "updated_at": "1970-01-01T00:00:00Z"
+  }
+}

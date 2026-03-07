@@ -10,7 +10,12 @@
     ".ai/specs/*.md",
     ".ai/workflows/*.md",
     ".ai/agents/*.md",
-    ".ai/review/*.md"
+    ".ai/review/*.md",
+    ".ai/stacks/*/README.md",
+    ".ai/stacks/*/stack.json",
+    ".ai/contracts/*.json",
+    ".ai/state/*.json",
+    ".opencode/prompts/vc-runtime-rules.md"
   ],
   "permission": {
     "bash": "allow",

@@ -1,0 +1,32 @@
+{
+  "stack-id": "sveltekit-web",
+  "runtime": "node",
+  "framework": "sveltekit",
+  "mandatory_checks": [
+    {
+      "id": "lint",
+      "command": "pnpm lint",
+      "required": true
+    },
+    {
+      "id": "typecheck",
+      "command": "pnpm check",
+      "required": true
+    },
+    {
+      "id": "unit",
+      "command": "pnpm test:unit",
+      "required": true
+    },
+    {
+      "id": "smoke",
+      "command": "pnpm test:smoke",
+      "required": true
+    },
+    {
+      "id": "build",
+      "command": "pnpm build",
+      "required": true
+    }
+  ]
+}

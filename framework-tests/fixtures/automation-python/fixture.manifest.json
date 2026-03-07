@@ -1,0 +1,16 @@
+{
+  "stack_id": "python-automation",
+  "required_paths": [
+    "AGENTS.md",
+    ".ai/stacks/python-automation/stack.json",
+    ".ai/contracts/workflow-state.schema.json",
+    ".opencode/prompts/vc-runtime-rules.md"
+  ],
+  "required_commands": [
+    "/intake",
+    "/plan-feature",
+    "/build-small",
+    "/fix",
+    "/review-release"
+  ]
+}

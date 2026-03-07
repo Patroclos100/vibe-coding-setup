@@ -1,0 +1,32 @@
+{
+  "stack-id": "fastapi-api",
+  "runtime": "python",
+  "framework": "fastapi",
+  "mandatory_checks": [
+    {
+      "id": "lint",
+      "command": "python -m ruff check .",
+      "required": true
+    },
+    {
+      "id": "typecheck",
+      "command": "python -m mypy .",
+      "required": true
+    },
+    {
+      "id": "unit",
+      "command": "python -m pytest tests/unit -q",
+      "required": true
+    },
+    {
+      "id": "integration",
+      "command": "python -m pytest tests/integration -q",
+      "required": true
+    },
+    {
+      "id": "smoke",
+      "command": "python -m pytest tests/smoke -q",
+      "required": true
+    }
+  ]
+}

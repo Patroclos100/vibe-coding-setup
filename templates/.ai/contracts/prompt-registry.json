@@ -1,0 +1,23 @@
+{
+  "runtime_source_of_truth": ".opencode",
+  "design_layer": ".ai/prompts",
+  "shared_runtime_prompt": ".opencode/prompts/vc-runtime-rules.md",
+  "agents": {
+    "vc-orchestrator": ".opencode/prompts/vc-orchestrator.md",
+    "vc-planner": ".opencode/prompts/vc-planner.md",
+    "vc-architecture-validator": ".opencode/prompts/vc-architecture-validator.md",
+    "vc-dependency-manager": ".opencode/prompts/vc-dependency-manager.md",
+    "vc-code-generator": ".opencode/prompts/vc-code-generator.md",
+    "vc-test-generator": ".opencode/prompts/vc-test-generator.md",
+    "vc-debugger": ".opencode/prompts/vc-debugger.md",
+    "vc-refactorer": ".opencode/prompts/vc-refactorer.md",
+    "vc-release-reviewer": ".opencode/prompts/vc-release-reviewer.md"
+  },
+  "design_mirrors": {
+    "intake-normalizer": ".ai/prompts/intake-normalizer.md",
+    "feature-implementation": ".ai/prompts/feature-implementation.md",
+    "self-heal-loop": ".ai/prompts/self-heal-loop.md",
+    "release-review": ".ai/prompts/release-review.md",
+    "change-summary": ".ai/prompts/change-summary.md"
+  }
+}

@@ -1,26 +1,34 @@
 ---
-description: Produce a bounded implementation plan without editing product code
+description: Produce a bounded implementation plan with acceptance traceability and exact checks
 agent: vc-orchestrator
 ---
 
-!!! PLAN FIRST !!!
+Load and apply in this order:
+1. `AGENTS.md`
+2. `.ai/contracts/output-schema.md`
+3. `.ai/contracts/check-matrix.md`
+4. `.ai/contracts/acceptance-traceability.md`
+5. `.ai/workflows/feature-workflow.md`
+6. active `.ai/stacks/*/stack.json`
+7. invoke `vc-planner`, `vc-architecture-validator`, and `vc-dependency-manager`
 
-Use this sequence:
-1. Load `AGENTS.md`
-2. Load `.ai/workflows/feature-workflow.md`
-3. Invoke `vc-planner`
-4. Invoke `vc-architecture-validator`
-5. If a package may be needed, invoke `vc-dependency-manager`
-6. Update `.ai/state/plan.md`, `.ai/state/current-task.md`, `.ai/state/risks.md`
+Update these state files:
+- `.ai/state/current-task.json`
+- `.ai/state/plan.json`
+- `.ai/state/risks.json`
 
-Feature request:
-$ARGUMENTS
+Required plan content:
+- one bounded increment
+- allowed paths only
+- candidate files only
+- explicit acceptance criteria IDs
+- mandatory checks copied from the active stack pack
+- dependency decision
 
-Required chat output:
-- scope for the next increment only
-- acceptance criteria for the next increment only
-- files likely to change
-- dependencies needed or not needed
-- checks that will be run later
+Do not implement code.
+Output must follow the Output Schema Contract.
 
-!!! DO NOT WRITE PRODUCT CODE !!!
+
+Runtime output rule:
+- Return exactly one JSON object that conforms to `.ai/contracts/runtime-output.schema.json`.
+- Do not add markdown, narrative, or commentary outside the JSON object.

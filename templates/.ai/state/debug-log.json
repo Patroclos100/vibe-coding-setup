@@ -1,0 +1,12 @@
+{
+  "task_id": "TASK-0001",
+  "schema_version": "1.0",
+  "entries": [],
+  "retry_counters": {
+    "syntax": 0,
+    "tests": 0,
+    "refactor": 0,
+    "total": 0
+  },
+  "updated_at": "1970-01-01T00:00:00Z"
+}

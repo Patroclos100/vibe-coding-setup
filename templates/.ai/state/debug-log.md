@@ -1,7 +1,3 @@
-# Debug Log
+# Debug Log Summary
 
-## Error Class
-## Root Cause
-## Fix Applied
-## Result After Rerun
-## Remaining Blockers
+Read `.ai/state/debug-log.json` for the source of truth.

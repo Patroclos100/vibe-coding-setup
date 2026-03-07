@@ -1,0 +1,32 @@
+{
+  "stack-id": "python-automation",
+  "runtime": "python",
+  "framework": "python-cli",
+  "mandatory_checks": [
+    {
+      "id": "lint",
+      "command": "python -m ruff check .",
+      "required": true
+    },
+    {
+      "id": "typecheck",
+      "command": "python -m mypy .",
+      "required": true
+    },
+    {
+      "id": "unit",
+      "command": "python -m pytest tests/unit -q",
+      "required": true
+    },
+    {
+      "id": "smoke",
+      "command": "python -m pytest tests/smoke -q",
+      "required": true
+    },
+    {
+      "id": "package",
+      "command": "python -m compileall .",
+      "required": true
+    }
+  ]
+}

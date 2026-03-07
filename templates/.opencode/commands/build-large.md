@@ -1,28 +1,29 @@
 ---
-description: Split a large request into phases, then execute phase 1 only unless otherwise specified
+description: Split large work into phases, then execute phase 1 only with bounded checks
 agent: vc-orchestrator
 ---
 
-!!! LARGE WORK MUST BE PHASED !!!
+Use `vc-planner` to split the request into phases.
+Only phase 1 may be implemented in this command unless the user explicitly requests more.
 
-Use this exact sequence:
-1. Load `AGENTS.md`
-2. Load `.ai/workflows/feature-workflow.md`
-3. Invoke `vc-planner`
-4. Split the request into phases
-5. Validate the full phased plan with `vc-architecture-validator`
-6. Review dependencies with `vc-dependency-manager` if needed
-7. Execute phase 1 only using the same sequence as `/build-small`
-8. Update plan and risks to reflect remaining phases
+Required artifacts:
+- `.ai/state/current-task.json`
+- `.ai/state/plan.json`
+- `.ai/state/risks.json`
+- `.ai/state/changed-files.json`
+- `.ai/state/test-results.json`
 
-Large request:
-$ARGUMENTS
+Mandatory flow:
+1. plan phases
+2. validate architecture and dependency impact
+3. implement phase 1 only
+4. generate tests
+5. run active-stack mandatory checks
+6. debug and repair if needed
 
-Required chat output:
-- phase breakdown
-- why phase 1 was selected
-- what phase 1 implemented
-- checks run and results
-- remaining phases
+Output must follow the Output Schema Contract.
 
-!!! DO NOT ATTEMPT A WHOLE-PROJECT REWRITE IN ONE PASS !!!
+
+Runtime output rule:
+- Return exactly one JSON object that conforms to `.ai/contracts/runtime-output.schema.json`.
+- Do not add markdown, narrative, or commentary outside the JSON object.

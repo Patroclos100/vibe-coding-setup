@@ -1,0 +1,8 @@
+intake
+plan-feature
+build-small
+build-large
+fix
+refactor-safe
+review-release
+status

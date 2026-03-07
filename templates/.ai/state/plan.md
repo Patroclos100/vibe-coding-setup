@@ -1,8 +1,3 @@
-# Plan
+# Plan Summary
 
-## Goal
-## Current Increment
-## Steps
-## Files Expected To Change
-## Risks
-## Checks To Run
+Read `.ai/state/plan.json` for the source of truth.

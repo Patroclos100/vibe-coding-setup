@@ -1,0 +1,16 @@
+{
+  "stack_id": "sveltekit-web",
+  "required_paths": [
+    "AGENTS.md",
+    ".ai/stacks/sveltekit-web/stack.json",
+    ".ai/state/workflow-state.json",
+    ".opencode/commands/intake.md"
+  ],
+  "required_commands": [
+    "/intake",
+    "/plan-feature",
+    "/build-small",
+    "/fix",
+    "/review-release"
+  ]
+}

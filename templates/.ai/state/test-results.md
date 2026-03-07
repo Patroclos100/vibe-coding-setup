@@ -1,6 +1,3 @@
-# Test Results
+# Test Results Summary
 
-## Commands Run
-## Passed
-## Failed
-## Notes
+Read `.ai/state/test-results.json` for the source of truth.

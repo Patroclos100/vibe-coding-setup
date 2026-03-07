@@ -1,0 +1,9 @@
+vc-orchestrator
+vc-planner
+vc-architecture-validator
+vc-dependency-manager
+vc-code-generator
+vc-test-generator
+vc-debugger
+vc-refactorer
+vc-release-reviewer

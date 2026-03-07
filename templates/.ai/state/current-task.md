@@ -1,6 +1,3 @@
-# Current Task
+# Current Task Summary
 
-## Requested Work
-## Current Increment
-## Status
-## Blocking Issues
+Read `.ai/state/current-task.json` for the source of truth.

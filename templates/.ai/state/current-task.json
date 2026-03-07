@@ -1,0 +1,19 @@
+{
+  "task_id": "TASK-0001",
+  "schema_version": "1.0",
+  "title": "Normalize request",
+  "command": "/intake",
+  "status": "pending",
+  "active_stack": "sveltekit-web",
+  "workflow": "feature-workflow",
+  "scope": {
+    "summary": "Create an implementation-ready task",
+    "in_scope": [],
+    "out_of_scope": []
+  },
+  "acceptance_criteria_ids": [],
+  "assumptions": [],
+  "notes": [],
+  "next_action": "Define acceptance criteria",
+  "updated_at": "1970-01-01T00:00:00Z"
+}

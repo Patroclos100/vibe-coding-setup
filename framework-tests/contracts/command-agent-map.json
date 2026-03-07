@@ -1,0 +1,10 @@
+{
+  "intake": "vc-orchestrator",
+  "plan-feature": "vc-orchestrator",
+  "build-small": "vc-orchestrator",
+  "build-large": "vc-orchestrator",
+  "fix": "vc-orchestrator",
+  "refactor-safe": "vc-orchestrator",
+  "review-release": "vc-orchestrator",
+  "status": "vc-orchestrator"
+}

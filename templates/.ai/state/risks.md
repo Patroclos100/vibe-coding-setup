@@ -1,3 +1,3 @@
-# Risks
+# Risk Summary
 
-List delivery, ambiguity, architecture, dependency, and regression risks here.
+Read `.ai/state/risks.json` for the source of truth.
