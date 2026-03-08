@@ -63,6 +63,8 @@ for path in required_files:
 
 runtime_validator = validator_for(TEMPLATES / '.ai/contracts/runtime-output.schema.json')
 workflow_validator = validator_for(TEMPLATES / '.ai/contracts/workflow-state.schema.json')
+policy_validator = validator_for(TEMPLATES / '.ai/contracts/execution-policy.schema.json')
+decision_validator = validator_for(TEMPLATES / '.ai/contracts/execution-decision.schema.json')
 
 # Validate state JSON files individually and aggregate workflow state against schema
 state_dir = TEMPLATES / '.ai/state'
@@ -73,6 +75,9 @@ state_files = [
     'changed-files.json',
     'test-results.json',
     'debug-log.json',
+    'execution-state.json',
+    'execution-ledger.json',
+    'checkpoints.json',
     'workflow-state.json',
 ]
 for name in state_files:
@@ -86,6 +91,7 @@ for name in state_files:
 
 workflow_state = load_json(state_dir / 'workflow-state.json')
 schema_check(workflow_validator, workflow_state, 'templates/.ai/state/workflow-state.json', True)
+schema_check(policy_validator, load_json(TEMPLATES / '.ai/contracts/execution-policy.json'), 'templates/.ai/contracts/execution-policy.json', True)
 
 # Cross-check aggregate workflow state with split state files
 try:
@@ -95,18 +101,28 @@ try:
     split_changed = load_json(state_dir / 'changed-files.json')
     split_tests = load_json(state_dir / 'test-results.json')
     split_debug = load_json(state_dir / 'debug-log.json')
+    split_execution = load_json(state_dir / 'execution-state.json')
+    split_ledger = load_json(state_dir / 'execution-ledger.json')
+    split_checkpoints = load_json(state_dir / 'checkpoints.json')
     check(workflow_state.get('task') == split_task, 'workflow-state task section is out of sync with current-task.json')
     check(workflow_state.get('plan') == split_plan, 'workflow-state plan section is out of sync with plan.json')
     check(workflow_state.get('risks') == split_risks, 'workflow-state risks section is out of sync with risks.json')
     check(workflow_state.get('changed_files') == split_changed, 'workflow-state changed_files section is out of sync with changed-files.json')
     check(workflow_state.get('test_results') == split_tests, 'workflow-state test_results section is out of sync with test-results.json')
     check(workflow_state.get('debug_log') == split_debug, 'workflow-state debug_log section is out of sync with debug-log.json')
+    check(workflow_state.get('execution') == split_execution, 'workflow-state execution section is out of sync with execution-state.json')
+    check(workflow_state.get('checkpoints') == split_checkpoints, 'workflow-state checkpoints section is out of sync with checkpoints.json')
     check(len(split_changed.get('files', [])) == len(set(split_changed.get('files', []))), 'changed-files.json contains duplicate file paths')
     retry_counters = split_debug.get('retry_counters', {})
     total = retry_counters.get('total', 0)
     check(total >= retry_counters.get('syntax', 0), 'debug-log.json total retries is below syntax retries')
     check(total >= retry_counters.get('tests', 0), 'debug-log.json total retries is below test retries')
     check(total >= retry_counters.get('refactor', 0), 'debug-log.json total retries is below refactor retries')
+    check(bool(split_ledger.get('decisions')), 'execution-ledger.json must contain at least one decision')
+    latest_decision = split_ledger.get('decisions', [])[-1]
+    schema_check(decision_validator, latest_decision, 'templates/.ai/state/execution-ledger.json latest decision', True)
+    check(workflow_state.get('policy_summary', {}).get('authorized_next_action') == latest_decision.get('authorized_action'), 'policy_summary authorized_next_action is out of sync with execution-ledger.json')
+    check(workflow_state.get('policy_summary', {}).get('authorized_next_actor') == latest_decision.get('next_actor'), 'policy_summary authorized_next_actor is out of sync with execution-ledger.json')
 except Exception as exc:
     check(False, f'failed to cross-check structured workflow state: {exc}')
 
@@ -129,6 +145,7 @@ for name in required_commands:
         check('.json' in content, f'command missing JSON-state usage: {path.relative_to(ROOT)}')
         check('runtime-output.schema.json' in content, f'command missing runtime output schema reference: {path.relative_to(ROOT)}')
         check('Return exactly one JSON object' in content, f'command missing strict JSON-only rule: {path.relative_to(ROOT)}')
+        check('execution-policy.json' in content, f'command missing execution policy reference: {path.relative_to(ROOT)}')
         expected_agent = command_agent_map.get(name)
         check(bool(expected_agent), f'no command-agent contract declared for {name}')
         if expected_agent:
@@ -172,6 +189,7 @@ for item in ['.ai/contracts/*.md', '.ai/specs/*.md', '.ai/workflows/*.md', '.ai/
 shared_runtime = read(TEMPLATES / '.opencode/prompts/vc-runtime-rules.md')
 check('Return exactly one JSON object' in shared_runtime, 'shared runtime rules missing strict JSON output instruction')
 check('.ai/state/workflow-state.json' in shared_runtime, 'shared runtime rules missing workflow-state reference')
+check('execution-policy.json' in shared_runtime, 'shared runtime rules missing execution policy reference')
 for path in sorted(prompts_dir.glob('vc-*.md')):
     if path.name == 'vc-runtime-rules.md':
         continue
@@ -205,7 +223,7 @@ cmd = [
     'bash', str(ROOT / 'scripts/new-ai-app.sh'), 'smoke-app', str(scaffold_dir),
     '--template-root', str(TEMPLATES), '--no-install', '--no-dev-deps', '--no-tailwind', '--no-git', '--quiet'
 ]
-result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
+result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=30)
 check(result.returncode == 0, f'new-ai-app.sh smoke test failed: {result.stderr.strip() or result.stdout.strip()}')
 project_dir = scaffold_dir / 'smoke-app'
 if project_dir.exists():

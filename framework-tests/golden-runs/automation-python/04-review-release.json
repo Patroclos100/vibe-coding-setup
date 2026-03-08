@@ -16,7 +16,8 @@
   "inputs_used": {
     "contracts": [
       ".ai/contracts/output-schema.md",
-      ".ai/contracts/check-matrix.md"
+      ".ai/contracts/check-matrix.md",
+      ".ai/contracts/execution-policy.json"
     ],
     "specs": [
       ".ai/specs/product-spec.md"
@@ -85,8 +86,16 @@
   },
   "state_updates": [
     ".ai/review/release-checklist.md",
-    ".ai/state/workflow-state.json"
+    ".ai/state/workflow-state.json",
+    ".ai/state/execution-state.json"
   ],
   "remaining_out_of_scope": [],
-  "next_action": "Mark increment done"
+  "next_action": "Mark increment done",
+  "failure_class": "none",
+  "severity": "low",
+  "progress_state": "meaningful_progress",
+  "recommended_action": "continue",
+  "recommended_next_actor": "vc-orchestrator",
+  "requires_rollback": false,
+  "requires_human": false
 }

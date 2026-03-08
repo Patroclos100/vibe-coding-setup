@@ -15,7 +15,8 @@
   "inputs_used": {
     "contracts": [
       ".ai/contracts/output-schema.md",
-      ".ai/contracts/check-matrix.md"
+      ".ai/contracts/check-matrix.md",
+      ".ai/contracts/execution-policy.json"
     ],
     "specs": [
       ".ai/specs/product-spec.md"
@@ -71,10 +72,19 @@
   "state_updates": [
     ".ai/state/current-task.json",
     ".ai/state/plan.json",
-    ".ai/state/risks.json"
+    ".ai/state/risks.json",
+    ".ai/state/execution-state.json",
+    ".ai/state/workflow-state.json"
   ],
   "remaining_out_of_scope": [
     "Release review"
   ],
-  "next_action": "Run /plan-feature"
+  "next_action": "Run /plan-feature",
+  "failure_class": "none",
+  "severity": "low",
+  "progress_state": "meaningful_progress",
+  "recommended_action": "continue",
+  "recommended_next_actor": "vc-orchestrator",
+  "requires_rollback": false,
+  "requires_human": false
 }

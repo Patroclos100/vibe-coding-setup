@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/execution-policy.schema.json",
+  "title": "Execution Policy",
+  "type": "object",
+  "required": [
+    "policy_version",
+    "runtime_states",
+    "failure_classes",
+    "severity_levels",
+    "progress_states",
+    "hard_limits",
+    "retry_policy",
+    "stop_conditions",
+    "escalation_conditions"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "retryBudget": {
+      "type": "object",
+      "required": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "low": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "medium": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "high": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "critical": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "properties": {
+    "policy_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "runtime_states": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "failure_classes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "severity_levels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      }
+    },
+    "progress_states": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hard_limits": {
+      "type": "object",
+      "required": [
+        "max_total_attempts_per_increment",
+        "max_replans_per_increment",
+        "max_rollbacks_per_increment",
+        "max_same_failure_signature_attempts",
+        "max_actor_hops_without_validated_progress"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "max_total_attempts_per_increment": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_replans_per_increment": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_rollbacks_per_increment": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_same_failure_signature_attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_actor_hops_without_validated_progress": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "retry_policy": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/retryBudget"
+      }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "escalation_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

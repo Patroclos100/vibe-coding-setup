@@ -1,0 +1,147 @@
+{
+  "version": "1.0",
+  "transitions": [
+    {
+      "from": "initialized",
+      "trigger": "command accepted",
+      "to": "intake_ready",
+      "authorized_action": "continue"
+    },
+    {
+      "from": "intake_ready",
+      "trigger": "workflow selected",
+      "to": "planned",
+      "authorized_action": "continue"
+    },
+    {
+      "from": "planned",
+      "trigger": "preconditions satisfied",
+      "to": "execution_ready",
+      "authorized_action": "continue"
+    },
+    {
+      "from": "execution_ready",
+      "trigger": "actor assigned",
+      "to": "executing",
+      "authorized_action": "continue"
+    },
+    {
+      "from": "executing",
+      "trigger": "implementation returned",
+      "to": "validating",
+      "authorized_action": "continue"
+    },
+    {
+      "from": "executing",
+      "trigger": "retry-eligible failure",
+      "to": "repair_pending",
+      "authorized_action": "retry"
+    },
+    {
+      "from": "executing",
+      "trigger": "plan-invalidating failure",
+      "to": "replan_pending",
+      "authorized_action": "replan"
+    },
+    {
+      "from": "executing",
+      "trigger": "unsafe change detected",
+      "to": "rollback_pending",
+      "authorized_action": "rollback"
+    },
+    {
+      "from": "validating",
+      "trigger": "mandatory checks passed",
+      "to": "review_pending",
+      "authorized_action": "review"
+    },
+    {
+      "from": "validating",
+      "trigger": "check failure with retry budget",
+      "to": "repair_pending",
+      "authorized_action": "retry"
+    },
+    {
+      "from": "validating",
+      "trigger": "check failure after retries",
+      "to": "replan_pending",
+      "authorized_action": "replan"
+    },
+    {
+      "from": "repair_pending",
+      "trigger": "repair actor assigned",
+      "to": "retrying",
+      "authorized_action": "retry"
+    },
+    {
+      "from": "retrying",
+      "trigger": "retry succeeded",
+      "to": "validating",
+      "authorized_action": "continue"
+    },
+    {
+      "from": "retrying",
+      "trigger": "retry exhausted",
+      "to": "replan_pending",
+      "authorized_action": "replan"
+    },
+    {
+      "from": "replan_pending",
+      "trigger": "planner assigned",
+      "to": "replanning",
+      "authorized_action": "replan"
+    },
+    {
+      "from": "replanning",
+      "trigger": "revised plan valid",
+      "to": "execution_ready",
+      "authorized_action": "continue"
+    },
+    {
+      "from": "rollback_pending",
+      "trigger": "rollback target found",
+      "to": "rolling_back",
+      "authorized_action": "rollback"
+    },
+    {
+      "from": "rolling_back",
+      "trigger": "rollback verified",
+      "to": "replan_pending",
+      "authorized_action": "replan"
+    },
+    {
+      "from": "review_pending",
+      "trigger": "release review passed",
+      "to": "completed",
+      "authorized_action": "continue"
+    },
+    {
+      "from": "blocked",
+      "trigger": "required input resolved",
+      "to": "execution_ready",
+      "authorized_action": "continue"
+    }
+  ],
+  "forbidden_transitions": [
+    [
+      "executing",
+      "executing"
+    ],
+    [
+      "retrying",
+      "retrying"
+    ],
+    [
+      "validating",
+      "executing"
+    ],
+    [
+      "planned",
+      "completed"
+    ],
+    [
+      "rollback_pending",
+      "executing"
+    ]
+  ]
+}

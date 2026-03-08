@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "classes": {
+    "transient_tool": "CLI, network, package manager, or sandbox issue that may succeed on one bounded retry.",
+    "schema_violation": "Runtime JSON does not conform to contract but intent is still recoverable.",
+    "state_violation": "State files are stale, inconsistent, or incomplete.",
+    "check_failure": "Required automated validation failed.",
+    "dependency_violation": "Dependency change or policy breach blocks continuation.",
+    "architecture_violation": "Implementation conflicts with architecture or layering rules.",
+    "scope_violation": "Change escaped the bounded increment or allowed paths.",
+    "unsafe_change_risk": "Unsafe, destructive, or high-risk change detected.",
+    "non_deterministic_output": "Agent output is ambiguous or unstable for orchestration.",
+    "missing_required_input": "Human clarification or external credential is required.",
+    "repeated_no_progress": "Failure signature repeats without validated progress.",
+    "rollback_failure": "Rollback target is missing or rollback verification failed."
+  }
+}

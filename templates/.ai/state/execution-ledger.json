@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "execution_id": "EXEC-0001",
+  "decisions": [
+    {
+      "decision_id": "DEC-0000",
+      "execution_id": "EXEC-0001",
+      "timestamp": "1970-01-01T00:00:00Z",
+      "command": "/intake",
+      "prior_state": "initialized",
+      "trigger": "bootstrap",
+      "failure_class": "none",
+      "severity": "low",
+      "progress_state": "partial_progress",
+      "authorized_action": "continue",
+      "next_actor": "vc-orchestrator",
+      "next_state": "intake_ready",
+      "rationale_code": "BOOTSTRAP"
+    }
+  ],
+  "updated_at": "1970-01-01T00:00:00Z"
+}

@@ -303,10 +303,8 @@ bootstrap_sveltekit() {
 
   local create_args=(create svelte@latest "$APP_NAME" --types ts --template minimal)
   if [[ "$RUN_INSTALL" -eq 0 ]]; then
-    if ! "$PACKAGE_MANAGER" "${create_args[@]}" --no-install; then
-      warn "Online bootstrap failed; falling back to offline skeleton"
-      bootstrap_sveltekit_offline
-    fi
+    log "==> Using offline skeleton bootstrap because --no-install was requested"
+    bootstrap_sveltekit_offline
   else
     if ! "$PACKAGE_MANAGER" "${create_args[@]}"; then
       warn "Online bootstrap failed; falling back to offline skeleton"

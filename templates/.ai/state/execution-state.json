@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "execution_id": "EXEC-0001",
+  "task_id": "TASK-0001",
+  "plan_id": "INC-001",
+  "runtime_state": "initialized",
+  "current_actor": "vc-orchestrator",
+  "current_step": "command-intake",
+  "failure_class": "none",
+  "severity": "low",
+  "progress_state": "partial_progress",
+  "failure_signature": "none",
+  "attempt_counters": {
+    "global": 0,
+    "phase": 0,
+    "same_failure_signature": 0,
+    "replans": 0,
+    "rollbacks": 0,
+    "actor_hops_without_validated_progress": 0
+  },
+  "last_known_good": {
+    "checkpoint_id": "CHK-0000",
+    "task_state_ref": ".ai/state/workflow-state.json",
+    "verified_by": [],
+    "recorded_at": "1970-01-01T00:00:00Z"
+  },
+  "last_decision_id": "DEC-0000",
+  "updated_at": "1970-01-01T00:00:00Z"
+}

@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "agents": {
+    "vc-orchestrator": [
+      "continue",
+      "review"
+    ],
+    "vc-planner": [
+      "continue",
+      "replan"
+    ],
+    "vc-dependency-manager": [
+      "continue"
+    ],
+    "vc-code-generator": [
+      "continue"
+    ],
+    "vc-test-generator": [
+      "continue"
+    ],
+    "vc-debugger": [
+      "retry"
+    ],
+    "vc-refactorer": [
+      "replan",
+      "continue"
+    ],
+    "vc-architecture-validator": [
+      "continue",
+      "review"
+    ],
+    "vc-release-reviewer": [
+      "review",
+      "escalate",
+      "stop"
+    ]
+  },
+  "default_next_actor_map": {
+    "planned": "vc-dependency-manager",
+    "execution_ready": "vc-code-generator",
+    "validating": "vc-architecture-validator",
+    "repair_pending": "vc-debugger",
+    "replan_pending": "vc-planner",
+    "review_pending": "vc-release-reviewer"
+  }
+}

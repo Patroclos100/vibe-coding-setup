@@ -8,6 +8,13 @@
     "agent",
     "command",
     "status",
+    "failure_class",
+    "severity",
+    "progress_state",
+    "recommended_action",
+    "recommended_next_actor",
+    "requires_rollback",
+    "requires_human",
     "current_scope",
     "inputs_used",
     "files",
@@ -143,6 +150,45 @@
           "$ref": "#/$defs/nonEmptyString"
         }
       }
+    },
+    "failureClass": {
+      "type": "string",
+      "enum": [
+        "none",
+        "transient_tool",
+        "schema_violation",
+        "state_violation",
+        "check_failure",
+        "dependency_violation",
+        "architecture_violation",
+        "scope_violation",
+        "unsafe_change_risk",
+        "non_deterministic_output",
+        "missing_required_input",
+        "repeated_no_progress",
+        "rollback_failure"
+      ]
+    },
+    "progressState": {
+      "type": "string",
+      "enum": [
+        "meaningful_progress",
+        "partial_progress",
+        "no_progress",
+        "regression"
+      ]
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "continue",
+        "retry",
+        "replan",
+        "rollback",
+        "stop",
+        "escalate",
+        "review"
+      ]
     }
   },
   "properties": {
@@ -160,6 +206,28 @@
     },
     "status": {
       "$ref": "#/$defs/statusEnum"
+    },
+    "failure_class": {
+      "$ref": "#/$defs/failureClass"
+    },
+    "severity": {
+      "$ref": "#/$defs/severity"
+    },
+    "progress_state": {
+      "$ref": "#/$defs/progressState"
+    },
+    "recommended_action": {
+      "$ref": "#/$defs/action"
+    },
+    "recommended_next_actor": {
+      "type": "string",
+      "pattern": "^vc-[a-z-]+$"
+    },
+    "requires_rollback": {
+      "type": "boolean"
+    },
+    "requires_human": {
+      "type": "boolean"
     },
     "current_scope": {
       "type": "object",

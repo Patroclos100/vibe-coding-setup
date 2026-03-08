@@ -1,0 +1,144 @@
+{
+  "policy_version": "1.0",
+  "runtime_states": [
+    "initialized",
+    "intake_ready",
+    "planned",
+    "execution_ready",
+    "executing",
+    "validating",
+    "repair_pending",
+    "retrying",
+    "replan_pending",
+    "replanning",
+    "rollback_pending",
+    "rolling_back",
+    "review_pending",
+    "completed",
+    "blocked",
+    "escalated",
+    "stopped"
+  ],
+  "failure_classes": [
+    "none",
+    "transient_tool",
+    "schema_violation",
+    "state_violation",
+    "check_failure",
+    "dependency_violation",
+    "architecture_violation",
+    "scope_violation",
+    "unsafe_change_risk",
+    "non_deterministic_output",
+    "missing_required_input",
+    "repeated_no_progress",
+    "rollback_failure"
+  ],
+  "severity_levels": [
+    "low",
+    "medium",
+    "high",
+    "critical"
+  ],
+  "progress_states": [
+    "meaningful_progress",
+    "partial_progress",
+    "no_progress",
+    "regression"
+  ],
+  "hard_limits": {
+    "max_total_attempts_per_increment": 6,
+    "max_replans_per_increment": 2,
+    "max_rollbacks_per_increment": 1,
+    "max_same_failure_signature_attempts": 2,
+    "max_actor_hops_without_validated_progress": 4
+  },
+  "retry_policy": {
+    "transient_tool": {
+      "low": 2,
+      "medium": 2,
+      "high": 1,
+      "critical": 0
+    },
+    "schema_violation": {
+      "low": 1,
+      "medium": 1,
+      "high": 1,
+      "critical": 0
+    },
+    "state_violation": {
+      "low": 1,
+      "medium": 1,
+      "high": 0,
+      "critical": 0
+    },
+    "check_failure": {
+      "low": 2,
+      "medium": 2,
+      "high": 1,
+      "critical": 0
+    },
+    "dependency_violation": {
+      "low": 0,
+      "medium": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "architecture_violation": {
+      "low": 0,
+      "medium": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "scope_violation": {
+      "low": 0,
+      "medium": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "unsafe_change_risk": {
+      "low": 0,
+      "medium": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "non_deterministic_output": {
+      "low": 0,
+      "medium": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "missing_required_input": {
+      "low": 0,
+      "medium": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "repeated_no_progress": {
+      "low": 0,
+      "medium": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "rollback_failure": {
+      "low": 0,
+      "medium": 0,
+      "high": 0,
+      "critical": 0
+    }
+  },
+  "stop_conditions": [
+    "Stop when total attempt budget is exhausted.",
+    "Stop when the same failure signature repeats without progress.",
+    "Stop when replan budget is exhausted.",
+    "Stop when rollback fails.",
+    "Stop when runtime output stays non-schema-conformant after allowed retry.",
+    "Stop when state consistency cannot be restored."
+  ],
+  "escalation_conditions": [
+    "Escalate when required product or scope input is missing.",
+    "Escalate when architecture or dependency policy conflicts require a business decision.",
+    "Escalate when rollback is impossible or failed.",
+    "Escalate when security or safety policy conflicts block autonomous continuation."
+  ]
+}
