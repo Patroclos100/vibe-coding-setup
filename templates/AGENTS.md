@@ -46,6 +46,18 @@ Always prefer the following sources over conversational guesswork:
 ## Command Enforcement
 Custom commands in `.opencode/commands/` are the default entrypoints.
 
+### Basic first-use rule
+If the operator is new to the framework, start with this minimal loop only:
+- `/basic-start`
+- `/intake`
+- `/plan-feature`
+- `/build-small`
+- `/fix`
+- `/review-release`
+- `/status`
+
+Do not recommend broader commands until the current increment is understood.
+
 ### Required command mapping
 - `/intake` -> normalize request and update specs/state
 - `/plan-feature` -> produce a bounded plan only

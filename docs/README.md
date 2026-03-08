@@ -1,32 +1,49 @@
 # Documentation Index
 
-This documentation is organized so that a third party can understand the framework without prior chat context.
+Diese Dokumentation ist jetzt in zwei Einstiegsebenen gegliedert.
 
-## Read first
-- `quickstart.md` — installation, validation, and first project scaffold
-- `architecture.md` — end-to-end architecture and execution model
-- `design-decisions.md` — key decisions, especially around JSON contracts and prompt layering
-- `implementation-history.md` — summary of all implementation phases that led to the current design
+## Ebene 1: Für den ersten erfolgreichen Einstieg
 
-## Runtime system
-These documents describe the parts used during normal AI-assisted development.
+Lies diese Dokumente in genau dieser Reihenfolge:
+
+1. `start-here.md`
+2. `quickstart.md`
+3. `basic-mode.md`
+4. `golden-path-first-success.md`
+5. `07-troubleshooting.md`
+6. `command-map.md`
+
+## Ebene 2: Für erweitertes Verständnis
+
+- `advanced-expert-mode.md`
+- `architecture.md`
+- `design-decisions.md`
+- `implementation-history.md`
+- `09-ai-factory-overview.md`
+
+## Runtime-System
+
+Diese Dokumente beschreiben die Teile, die während normaler AI-gestützter Entwicklung relevant sind.
 
 - `runtime/overview.md`
 - `runtime/commands.md`
 - `runtime/runtime-output.md`
 - `runtime/workflow-state.md`
 - `runtime/agent-runtime.md`
+- `runtime/runtime-engine.md`
+- `runtime/execution-policy.md`
+- `runtime/example-factory-run.md`
 
-## Stack packs
-These documents explain stack-specific runtime behavior.
+## Stack Packs
 
 - `stacks/overview.md`
 - `stacks/sveltekit-web.md`
 - `stacks/fastapi-api.md`
 - `stacks/python-automation.md`
 
-## Framework testing system
-These documents describe the assets used to verify the framework itself.
+## Framework-Testsystem
+
+Diese Dokumente betreffen die Prüfung des Frameworks selbst, nicht den normalen Feature-Flow in einem Projekt.
 
 - `framework-testing/overview.md`
 - `framework-testing/validator.md`
@@ -34,5 +51,13 @@ These documents describe the assets used to verify the framework itself.
 - `framework-testing/fixtures.md`
 - `framework-testing/failure-tests.md`
 
-## Legacy numbered docs
-The original numbered docs remain in place for continuity and now point into the fuller architecture documents.
+## Legacy-Docs
+
+Die nummerierten Dokumente bleiben erhalten, dienen aber jetzt eher als Anschlussdokumentation:
+- `01-overview.md`
+- `02-installation.md`
+- `03-create-project.md`
+- `04-development-workflow.md`
+- `05-opencode-agents.md`
+- `06-framework-architecture.md`
+- `08-extending-framework.md`

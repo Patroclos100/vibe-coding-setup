@@ -1,55 +1,53 @@
 # Quickstart
 
-This guide is for a first-time user or reviewer.
+Diese Version des Quickstarts ist auf einen realistischen Basic-Modus reduziert.
 
-## 1. Install the local tooling
-
-Run:
+## Schritt 1: Tools installieren
 
 ```bash
 ./scripts/setup-tools.sh
-./scripts/setup-opencode-commands.sh
 ```
 
-## 2. Validate the framework itself
+## Schritt 2: Geführten Setup-Check ausführen
 
-Before using the framework, verify that the repository is internally consistent.
+```bash
+./scripts/guided-setup.sh
+```
+
+## Schritt 3: Framework selbst validieren
 
 ```bash
 python3 scripts/validate-framework.py
 ```
 
-This validates the framework contracts, templates, stack packs, schema scenarios, golden runs, and scaffold smoke flow.
+Wichtig:
+`validate-framework.py` prüft das **Framework selbst**. Das ist kein normaler täglicher Feature-Schritt, aber vor dem ersten Einsatz sinnvoll.
 
-## 3. Create a new project scaffold
+## Schritt 4: Erstes Projekt erzeugen
 
 ```bash
-./scripts/new-ai-app.sh my-project ~/dev --ui
+./scripts/new-ai-app.sh my-project ~/dev --basic
 ```
 
-This creates a new project scaffold and copies the framework payload from `templates/`.
-
-## 4. Use the runtime commands inside OpenCode
-
-The standard runtime flow is:
+## Schritt 5: In OpenCode nur den Golden Path nutzen
 
 ```text
 /intake -> /plan-feature -> /build-small -> /fix -> /review-release
 ```
 
-Use `/build-large` only when the bounded increment is clearly too large for `/build-small`.
+## Was du am Anfang nicht brauchst
 
-## 5. Know what always runs and what does not
+Für den ersten Erfolg brauchst du nicht:
+- `/build-large`
+- `/refactor-safe`
+- Factory-Runtime-CLI
+- Modul-Registry
+- Release-/Monitoring-Details
 
-### Always part of runtime behavior
-- command prompts under `.opencode/commands/`
-- runtime prompt rules under `.opencode/prompts/`
-- JSON contracts under `.ai/contracts/`
-- JSON state under `.ai/state/`
-- active stack pack under `.ai/stacks/<stack-id>/`
+## Erfolgskontrolle
 
-### Only for framework verification
-- `framework-tests/`
-- `scripts/validate-framework.py`
-
-Framework tests verify the framework itself. They are not required every time a generated project implements a feature.
+Der Quickstart ist erfolgreich, wenn:
+- das Setup läuft
+- das Framework valide ist
+- ein Projekt scaffolded wurde
+- der Golden Path in OpenCode nachvollziehbar ausführbar ist

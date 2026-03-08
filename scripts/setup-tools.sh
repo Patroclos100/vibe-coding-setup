@@ -131,7 +131,9 @@ main() {
   log "Installing helper scripts into $TOOLS_DIR"
   install -m 755 "$ROOT_DIR/scripts/new-ai-app.sh" "$TOOLS_DIR/new-ai-app.sh"
   install -m 755 "$ROOT_DIR/scripts/check-current-setup.sh" "$TOOLS_DIR/check-current-setup.sh"
+  install -m 755 "$ROOT_DIR/scripts/guided-setup.sh" "$TOOLS_DIR/guided-setup.sh"
   install -m 755 "$ROOT_DIR/scripts/setup-opencode-commands.sh" "$TOOLS_DIR/setup-opencode-commands.sh"
+  install -m 755 "$ROOT_DIR/scripts/validate-framework.py" "$TOOLS_DIR/validate-framework.py"
 
   log "Enabling direnv hook in ~/.zshrc"
   append_if_missing 'eval "$(direnv hook zsh)"' "$HOME/.zshrc"
@@ -162,18 +164,19 @@ Setup complete.
 
 Next steps:
 1. Open a new terminal or run: source ~/.zshrc
-2. Run: $TOOLS_DIR/check-current-setup.sh
-3. Run: $TOOLS_DIR/new-ai-app.sh my-app ~/dev --ui
-4. Run: opencode
-5. In OpenCode: /connect -> GitHub Copilot
-6. Then inside the project: /intake <your first request>
+2. Run: $TOOLS_DIR/guided-setup.sh
+3. Run: python3 $TOOLS_DIR/validate-framework.py
+4. Run: $TOOLS_DIR/new-ai-app.sh my-app ~/dev --basic
+5. Run: opencode
+6. In OpenCode: /connect -> GitHub Copilot
+7. Then inside the project: /intake <your first request>
 
 Installed directories:
 - $DEV_DIR                projects
 - $AI_DIR                 framework assets
 - $TEMPLATES_DIR          current templates used by new-ai-app.sh
 - $FRAMEWORK_DOCS_DIR     reference docs
-- $TOOLS_DIR              helper scripts
+- $TOOLS_DIR              helper scripts (including guided-setup.sh)
 - $OPENCODE_DIR           global fallback OpenCode config
 MSG
 }

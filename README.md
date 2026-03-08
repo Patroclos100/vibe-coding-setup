@@ -1,99 +1,119 @@
 # VibeCoding AI Factory
 
-AI-first development framework for IT professionals without classical programming experience, evolved into a deterministic **AI Factory**.
+Deterministic AI-first development framework for IT-nahe Anwender mit wenig oder keiner Coding-Praxis.
 
-This repository preserves the hardened VibeCoding runtime and extends it into a factory-level operating model with:
-- factory orchestration across projects and modules
-- blueprint-based product creation
-- module registry and reuse rules
-- release, deployment, and monitoring workflows
-- governance, quality gates, and rollback criteria
+Der Repo-Zustand ist funktionsfähig und leistungsfähig, aber nicht selbsterklärend. Dieses Repository wurde deshalb um einen **Basic-Layer** ergänzt, ohne die bestehende Expertenschicht oder Runtime-Funktionen zu entfernen.
 
-## Core execution chain
+## Start hier
+
+Für den ersten erfolgreichen Durchlauf nutze nur diese Reihenfolge:
+
+1. `docs/start-here.md`
+2. `docs/quickstart.md`
+3. `docs/basic-mode.md`
+4. `docs/golden-path-first-success.md`
+5. `docs/07-troubleshooting.md`
+
+## Basic vs Advanced
+
+### Basic-Modus
+Gedacht für IT-nahe Nutzer mit Terminal-, Homebrew- und Log-Grundwissen.
+
+Im Basic-Modus sind nur diese Dinge relevant:
+- Tooling installieren
+- Setup prüfen
+- ein Projekt scaffolden
+- in OpenCode nur mit dem Golden Path arbeiten
+- Fehler zuerst über die einfachen Troubleshooting-Schritte eingrenzen
+
+Empfohlene Basic-Kommandos:
+- `/intake`
+- `/plan-feature`
+- `/build-small`
+- `/fix`
+- `/review-release`
+- `/status`
+
+### Advanced-/Expert-Modus
+Hier liegen die erweiterten Factory-Funktionen:
+- Blueprint-Auswahl
+- Modul-Registry und Wiederverwendung
+- Factory-Runtime-CLI
+- Release-/Deploy-/Monitoring-Flows
+- strukturierte Policy- und State-Maschinen
+- Framework-Selbsttests und Runtime-Interna
+
+## Kernprinzip
+
+Dieses Framework arbeitet nicht als freies Chat-System, sondern als kontrollierte Kette:
 
 `Command -> Workflow -> Agent Contract -> State Update -> Quality Gate -> Review -> Release`
 
-## Factory execution chain
+Factory-Ebene:
 
 `Idea -> Intake -> Blueprint Selection -> Product Initialization -> Module Plan -> Build -> Test -> Review -> Release -> Deploy -> Monitor`
 
-## Repository map
+## Sichtbare Einstiegspfade
 
-- `templates/` runtime payload copied into generated projects
-- `templates/.ai/factory/` factory orchestration, governance, portfolio, and pipeline rules
-- `templates/.ai/blueprints/` reusable product blueprints
-- `templates/.ai/modules/` module registry, metadata model, reuse policy, and dependency rules
-- `templates/.ai/projects/` project portfolio and initialization state
-- `templates/.ai/releases/` release, deployment, and monitoring artifacts
-- `templates/.opencode/commands/` deterministic runtime commands, now including factory/module/release commands
-- `framework-tests/` assets that verify the framework itself
-- `scripts/` setup, scaffolding, and validation tools
-- `docs/` end-user and contributor documentation
+### Erster lokaler Setup-Pfad
+```bash
+./scripts/setup-tools.sh
+./scripts/guided-setup.sh
+```
 
-## What was added in the AI Factory migration
+### Erster Repo-Check
+```bash
+./scripts/check-current-setup.sh
+python3 scripts/validate-framework.py
+```
 
-### Existing runtime retained
-- command-driven workflow execution
-- machine-readable runtime state and execution policy
-- stack-aware validation
-- framework self-tests and smoke tests
+### Erster Projekt-Scaffold
+```bash
+./scripts/new-ai-app.sh my-first-app ~/dev --basic
+```
 
-### New factory capabilities
-- multi-project factory orchestration
-- blueprint catalog for standardized product creation
-- module registry with dependency and reuse controls
-- factory-level agent hierarchy
-- quality gates with blocker/warning/manual-review classification
-- release, deployment, and monitoring workflows
-- project/release/state registries for deterministic traceability
+### Erster erfolgreicher Use Case
+In OpenCode nur diese Folge nutzen:
 
-## Runtime features vs framework-test features
+```text
+/intake -> /plan-feature -> /build-small -> /fix -> /review-release
+```
 
-### Runtime features
-Runtime features are part of normal AI-assisted development and are expected to be used in every generated project.
+## Repository-Orientierung
 
-Examples:
+- `docs/start-here.md` — bester Einstieg ohne Vorwissen zum Framework
+- `docs/basic-mode.md` — was Basic wirklich nutzen soll
+- `docs/advanced-expert-mode.md` — was bewusst später kommt
+- `docs/golden-path-first-success.md` — erster erfolgreicher End-to-End-Pfad
+- `docs/command-map.md` — welche Kommandos wann sinnvoll sind
+- `docs/runtime/*` — Runtime-Interna
+- `docs/framework-testing/*` — Framework-Selbsttests, nicht normales Projekt-Feature-Bauen
+- `templates/` — Payload, die in neue Projekte kopiert wird
+- `scripts/` — Setup, Checks, Scaffolding
+- `framework-tests/` — Tests für das Framework selbst
+
+## Runtime vs Framework-Tests
+
+### Runtime
+Diese Teile gehören zur normalen Arbeit in erzeugten Projekten:
 - `templates/.opencode/commands/*`
 - `templates/.opencode/prompts/*`
 - `templates/.ai/contracts/*`
-- `templates/.ai/factory/*`
-- `templates/.ai/blueprints/*`
-- `templates/.ai/modules/*`
-- `templates/.ai/projects/*`
-- `templates/.ai/releases/*`
 - `templates/.ai/state/*`
 - `templates/.ai/stacks/*`
+- `templates/factory-runtime/*`
 
-### Framework-test features
-Framework-test features exist to verify that the framework itself remains correct. They are **not** part of the normal feature-development loop inside a generated project.
-
-Examples:
+### Framework-Tests
+Diese Teile prüfen das Framework selbst und sind **nicht** der normale tägliche Feature-Flow:
 - `framework-tests/*`
 - `scripts/validate-framework.py`
-- golden runs, negative scenarios, and fixture manifests
-
-## Where to start
-
-- Read `docs/quickstart.md` for first use
-- Read `docs/architecture.md` for the system model
-- Read `docs/design-decisions.md` for rationale behind JSON contracts and prompt separation
-- Read `docs/09-ai-factory-overview.md` for the factory operating model
-- Read `docs/runtime/overview.md` to understand the runtime flow
-- Read `docs/framework-testing/overview.md` to understand framework self-verification
+- Golden-Runs, Fixtures, Negativszenarien
 
 ## Deterministic Factory Runtime
 
-This repository now includes an executable runtime layer under `templates/factory-runtime/` and scaffolded runtime state under `templates/.factory/`.
+Das Repository enthält einen ausführbaren Runtime-Layer unter `templates/factory-runtime/`.
 
-The runtime is the execution authority for:
-- workflow orchestration
-- state transition enforcement
-- policy evaluation
-- quality gates
-- run persistence
-- audit logging
-
-CLI examples:
+Beispiele:
 
 ```bash
 python3 factory-runtime/cli.py status
@@ -101,4 +121,3 @@ python3 factory-runtime/cli.py run intake --project billing-app --request "Build
 python3 factory-runtime/cli.py run build-module --project billing-app --module auth-service
 python3 factory-runtime/cli.py run release --project billing-app --release-id v0.1.0
 ```
-

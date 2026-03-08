@@ -1,11 +1,19 @@
 # Installation
 
-Primary installation and first-use guidance now lives in `docs/quickstart.md`.
+Die primäre Installationsanleitung liegt jetzt in:
+- `docs/start-here.md`
+- `docs/quickstart.md`
 
-Minimum sequence:
+## Minimaler Installationspfad
 
-1. `./scripts/setup-tools.sh`
-2. `./scripts/setup-opencode-commands.sh`
-3. `python3 scripts/validate-framework.py`
+```bash
+./scripts/setup-tools.sh
+./scripts/guided-setup.sh
+python3 scripts/validate-framework.py
+```
 
-The validator checks framework integrity before you start using the runtime.
+## Warum dieser Pfad sinnvoll ist
+
+- `setup-tools.sh` installiert und verteilt die nötigen Assets
+- `guided-setup.sh` erklärt, was fehlt und was als Nächstes zu tun ist
+- `validate-framework.py` prüft, ob das Framework intern konsistent ist

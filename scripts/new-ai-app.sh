@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 SCRIPT_NAME="$(basename "$0")"
 DEFAULT_TARGET_DIR="${HOME}/dev"
-DEFAULT_MODE="minimal"
+DEFAULT_MODE="basic"
 DEFAULT_FRAMEWORK="sveltekit"
 DEFAULT_PACKAGE_MANAGER="pnpm"
 DEFAULT_PROVIDER="github-copilot"
@@ -50,12 +50,14 @@ Usage:
 
 Examples:
   ${SCRIPT_NAME} my-app
-  ${SCRIPT_NAME} my-app ~/dev --ui
+  ${SCRIPT_NAME} my-app ~/dev --basic
   ${SCRIPT_NAME} my-app ~/work --template-root ~/ai/templates
   ${SCRIPT_NAME} my-app --provider github-copilot --model github-copilot/claude-sonnet-4
 
 Options:
-  --minimal                 Bootstrap lean V2+OpenCode project skeleton (default)
+  --basic                   Basic mode alias for --minimal (recommended)
+  --minimal                 Bootstrap lean V2+OpenCode project skeleton
+  --advanced                Advanced mode alias for --ui
   --ui                      Bootstrap V2+OpenCode project and try shadcn-svelte setup
   --framework <name>        Currently supported: sveltekit (default)
   --pm <name>               Package manager: pnpm (default)
@@ -73,6 +75,7 @@ Options:
 
 Behavior:
   - Creates a deterministic app skeleton for AI-assisted development.
+  - Basic mode is the recommended default for first-time IT users.
   - Copies the full V2 framework + .opencode command/agent structure into the new project.
   - Configures OpenCode for a GitHub Copilot-first workflow.
   - Enforces .ai/contracts, .ai/specs, .ai/workflows, .ai/agents, .ai/state, and .opencode/commands.
@@ -165,13 +168,13 @@ parse_args() {
   local positional=()
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      --minimal)
-        MODE="minimal"
+      --basic|--minimal)
+        MODE="basic"
         RUN_SHADCN=0
         shift
         ;;
-      --ui)
-        MODE="ui"
+      --advanced|--ui)
+        MODE="advanced"
         RUN_SHADCN=1
         shift
         ;;
@@ -333,7 +336,7 @@ install_dependencies() {
     "$PACKAGE_MANAGER" add -D prettier prettier-plugin-svelte eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin vitest @vitest/coverage-v8 playwright || warn "Dev dependency install failed; continuing"
   fi
 
-  if [[ "$MODE" == "ui" && "$RUN_SHADCN" -eq 1 ]]; then
+  if [[ "$MODE" == "advanced" && "$RUN_SHADCN" -eq 1 ]]; then
     if command -v npx >/dev/null 2>&1; then
       log "==> Initializing shadcn-svelte"
       npx shadcn-svelte@latest init || warn "shadcn-svelte init failed; continuing"
@@ -556,6 +559,11 @@ write_project_readme() {
 # $APP_NAME
 
 AI-first application scaffold with V2 autonomous-development guardrails and OpenCode command orchestration.
+
+## Start here
+- Read `START-HERE.md`
+- Read `docs/basic-mode.md`
+- Use only the golden path first
 
 ## Golden path
 1. Fill requirements.md

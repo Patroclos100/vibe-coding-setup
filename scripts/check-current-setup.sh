@@ -172,6 +172,25 @@ section "Provider note"
 warn "OpenCode provider connection cannot be verified automatically. Run: opencode -> /connect -> GitHub Copilot"
 WARNINGS=$((WARNINGS+1))
 
+section "Readiness interpretation"
+if [[ "$FAILURES" -eq 0 && "$WARNINGS" -eq 0 ]]; then
+  ok "Basic setup looks ready for the first successful run"
+elif [[ "$FAILURES" -eq 0 ]]; then
+  warn "Basic setup is usable, but clean up the warnings before serious work"
+else
+  fail "Basic setup is not ready yet; fix the failures first"
+fi
+
+printf "\nWhat to do next:\n"
+if [[ "$FAILURES" -gt 0 ]]; then
+  printf "- Run: ./scripts/setup-tools.sh\n"
+  printf "- Then: ./scripts/guided-setup.sh\n"
+  printf "- Then repeat this check\n"
+else
+  printf "- Run: python3 scripts/validate-framework.py\n"
+  printf "- Then: ./scripts/new-ai-app.sh my-first-app ~/dev --basic\n"
+fi
+
 printf "\nSummary: %s failure(s), %s warning(s).\n" "$FAILURES" "$WARNINGS"
 if [[ "$FAILURES" -gt 0 ]]; then
   exit 1
