@@ -247,6 +247,31 @@ if project_dir.exists():
 else:
     check(False, 'smoke project was not created')
 
+
+# Validate runtime package exists
+for path in [
+    TEMPLATES / 'factory-runtime/cli.py',
+    TEMPLATES / 'factory-runtime/factory_runtime/runtime.py',
+    TEMPLATES / 'factory-runtime/factory_runtime/workflow_executor.py',
+    TEMPLATES / '.ai/contracts/runtime-state-machine.json',
+    TEMPLATES / '.ai/contracts/quality-gates.json',
+    TEMPLATES / '.ai/agents/interfaces/registry.json',
+    TEMPLATES / '.ai/workflows/executable/registry.json',
+    TEMPLATES / '.factory/registries/projects.json',
+]:
+    check(path.exists(), f'missing runtime artifact: {path.relative_to(ROOT)}')
+
+# Runtime smoke execution
+if project_dir.exists():
+    runtime_cmd = ['python3', str(project_dir / 'factory-runtime' / 'cli.py'), '--project-root', str(project_dir), 'run', 'intake', '--project', 'smoke-app', '--request', 'Build a smoke app']
+    runtime_result = subprocess.run(runtime_cmd, cwd=project_dir, capture_output=True, text=True, timeout=30)
+    check(runtime_result.returncode == 0, f'factory runtime intake smoke run failed: {runtime_result.stderr.strip() or runtime_result.stdout.strip()}')
+    status_cmd = ['python3', str(project_dir / 'factory-runtime' / 'cli.py'), '--project-root', str(project_dir), 'status']
+    status_result = subprocess.run(status_cmd, cwd=project_dir, capture_output=True, text=True, timeout=30)
+    check(status_result.returncode == 0, f'factory runtime status smoke run failed: {status_result.stderr.strip() or status_result.stdout.strip()}')
+    check((project_dir / '.factory' / 'runs').exists(), 'runtime smoke run did not create .factory/runs')
+    check((project_dir / '.factory' / 'audit' / 'audit-log.jsonl').exists(), 'runtime smoke run did not create audit log')
+
 # Clean up temporary smoke artifacts after validation
 if scaffold_dir.exists():
     subprocess.run(['rm', '-rf', str(scaffold_dir)], check=False)

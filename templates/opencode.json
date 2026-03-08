@@ -21,7 +21,12 @@
     ".ai/blueprints/*.ai",
     ".ai/modules/*.ai",
     ".ai/projects/*.json",
-    ".ai/releases/*.ai"
+    ".ai/releases/*.ai",
+    ".ai/workflows/executable/*.json",
+    ".ai/agents/interfaces/*.json",
+    ".factory/registries/*.json",
+    "factory-runtime/**/*.py",
+    "factory-runtime/README.md"
   ],
   "permission": {
     "bash": "allow",

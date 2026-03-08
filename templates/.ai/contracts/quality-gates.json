@@ -1,0 +1,98 @@
+{
+  "version": "1.0",
+  "gates": [
+    {
+      "id": "gate-project-registered",
+      "name": "Project registered",
+      "applies_to": [
+        "intake",
+        "build-module",
+        "release"
+      ],
+      "metric": "project_registered",
+      "classification": "blocker",
+      "threshold": true,
+      "runtime_response": "block"
+    },
+    {
+      "id": "gate-workflow-exists",
+      "name": "Workflow definition exists",
+      "applies_to": [
+        "build-module",
+        "release"
+      ],
+      "metric": "workflow_definition_exists",
+      "classification": "blocker",
+      "threshold": true,
+      "runtime_response": "block"
+    },
+    {
+      "id": "gate-module-plan",
+      "name": "Module plan exists",
+      "applies_to": [
+        "build-module"
+      ],
+      "metric": "module_plan_exists",
+      "classification": "blocker",
+      "threshold": true,
+      "runtime_response": "retry_or_replan"
+    },
+    {
+      "id": "gate-test-coverage",
+      "name": "Minimum test coverage",
+      "applies_to": [
+        "build-module",
+        "release"
+      ],
+      "metric": "test_coverage",
+      "classification": "warning",
+      "threshold": 80,
+      "runtime_response": "warn"
+    },
+    {
+      "id": "gate-lint",
+      "name": "Lint status",
+      "applies_to": [
+        "build-module",
+        "release"
+      ],
+      "metric": "lint_status",
+      "classification": "blocker",
+      "threshold": "passed",
+      "runtime_response": "block"
+    },
+    {
+      "id": "gate-dependency-risk",
+      "name": "Dependency risk score",
+      "applies_to": [
+        "release"
+      ],
+      "metric": "dependency_risk_score",
+      "classification": "warning",
+      "threshold": 20,
+      "runtime_response": "warn"
+    },
+    {
+      "id": "gate-rollback",
+      "name": "Rollback checkpoint available",
+      "applies_to": [
+        "release"
+      ],
+      "metric": "rollback_checkpoint_available",
+      "classification": "blocker",
+      "threshold": true,
+      "runtime_response": "block"
+    },
+    {
+      "id": "gate-release-approval",
+      "name": "Release approval present",
+      "applies_to": [
+        "release"
+      ],
+      "metric": "release_approval_present",
+      "classification": "blocker",
+      "threshold": true,
+      "runtime_response": "block"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "workflow_id": "build-module",
+  "description": "Plan a module, build it, and enforce quality gates.",
+  "start_state": "product_initialized",
+  "terminal_state": "review_pending",
+  "failure_terminal_state": "tests_failed",
+  "steps": [
+    {
+      "id": "plan-module",
+      "entry_state": "module_plan_approved",
+      "success_state": "build_running",
+      "agent": "vc-planner",
+      "action": "plan_module",
+      "required_artifacts": [
+        ".ai/state/plan.json"
+      ]
+    },
+    {
+      "id": "build-module",
+      "entry_state": "build_running",
+      "success_state": "review_pending",
+      "agent": "vc-code-generator",
+      "action": "build_module",
+      "required_artifacts": [
+        "src/generated"
+      ]
+    },
+    {
+      "id": "run-quality-gates",
+      "entry_state": "review_pending",
+      "success_state": "review_pending",
+      "agent": "vc-architecture-validator",
+      "action": "run_quality_gates",
+      "required_artifacts": [
+        ".ai/contracts/quality-gates.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "vc-orchestrator": ".ai/agents/interfaces/vc-orchestrator.json",
+  "vc-planner": ".ai/agents/interfaces/vc-planner.json",
+  "vc-code-generator": ".ai/agents/interfaces/vc-code-generator.json",
+  "vc-architecture-validator": ".ai/agents/interfaces/vc-architecture-validator.json",
+  "vc-release-reviewer": ".ai/agents/interfaces/vc-release-reviewer.json",
+  "vc-debugger": ".ai/agents/interfaces/vc-debugger.json"
+}

@@ -1,0 +1,20 @@
+{
+  "agent_id": "vc-architecture-validator",
+  "purpose": "Evaluate architecture and quality gate evidence.",
+  "inputs": [
+    "project",
+    "module",
+    "quality_results"
+  ],
+  "required_artifacts": [
+    ".ai/contracts/quality-gates.json"
+  ],
+  "expected_output_schema": ".ai/contracts/runtime-output.schema.json",
+  "success_signal": "status=passed",
+  "failure_signal": "status=failed",
+  "allowed_follow_up_actions": [
+    "continue",
+    "review"
+  ],
+  "escalation_behavior": "Escalate through the policy engine when failure class is non-retryable or missing input blocks execution."
+}

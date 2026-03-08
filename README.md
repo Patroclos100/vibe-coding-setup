@@ -80,3 +80,25 @@ Examples:
 - Read `docs/09-ai-factory-overview.md` for the factory operating model
 - Read `docs/runtime/overview.md` to understand the runtime flow
 - Read `docs/framework-testing/overview.md` to understand framework self-verification
+
+## Deterministic Factory Runtime
+
+This repository now includes an executable runtime layer under `templates/factory-runtime/` and scaffolded runtime state under `templates/.factory/`.
+
+The runtime is the execution authority for:
+- workflow orchestration
+- state transition enforcement
+- policy evaluation
+- quality gates
+- run persistence
+- audit logging
+
+CLI examples:
+
+```bash
+python3 factory-runtime/cli.py status
+python3 factory-runtime/cli.py run intake --project billing-app --request "Build a billing platform"
+python3 factory-runtime/cli.py run build-module --project billing-app --module auth-service
+python3 factory-runtime/cli.py run release --project billing-app --release-id v0.1.0
+```
+

@@ -364,7 +364,10 @@ ensure_project_structure() {
     "$PROJECT_DIR/tests/unit" \
     "$PROJECT_DIR/tests/integration" \
     "$PROJECT_DIR/tests/e2e" \
-    "$PROJECT_DIR/.opencode/sessions"
+    "$PROJECT_DIR/.opencode/sessions" \
+    "$PROJECT_DIR/.factory/registries" \
+    "$PROJECT_DIR/.factory/runs" \
+    "$PROJECT_DIR/.factory/audit"
 
   write_file_if_missing "$PROJECT_DIR/src/lib/utils/cn.ts" $'export function cn(...parts: Array<string | false | null | undefined>) {\n  return parts.filter(Boolean).join(" ");\n}'
 
@@ -501,13 +504,19 @@ required_instr = [
     'AGENTS.md',
     'requirements.md',
     '.ai/contracts/*.md',
+    '.ai/contracts/*.json',
     '.ai/specs/*.md',
     '.ai/workflows/*.md',
+    '.ai/workflows/executable/*.json',
     '.ai/agents/*.md',
+    '.ai/agents/interfaces/*.json',
     '.ai/review/*.md',
     '.ai/stacks/*/README.md',
     '.ai/stacks/*/stack.json',
+    '.factory/registries/*.json',
+    'factory-runtime/**/*.py',
 ]
+
 for item in required_instr:
     if item not in instr:
         instr.append(item)
@@ -549,21 +558,21 @@ write_project_readme() {
 AI-first application scaffold with V2 autonomous-development guardrails and OpenCode command orchestration.
 
 ## Golden path
-1. Fill \\`requirements.md\\`
-2. Review \\`AGENTS.md\\`
-3. Review \\`.ai/specs/*\\` and adapt only where the project truly differs
-4. Open OpenCode and connect GitHub Copilot with \\`/connect\\`
-5. Select a Copilot-supported model with \\`/models\\` if needed
-6. Start with \\`/intake\\` or \\`/plan-feature\\`
-7. Use \\`/build-small\\` before \\`/build-large\\`
-8. Run \\`/review-release\\` before merge
+1. Fill requirements.md
+2. Review AGENTS.md
+3. Review .ai/specs/* and adapt only where the project truly differs
+4. Open OpenCode and connect GitHub Copilot with /connect
+5. Select a Copilot-supported model with /models if needed
+6. Start with /intake or /plan-feature
+7. Use /build-small before /build-large
+8. Run /review-release before merge
 
 ## Required workflow discipline
 - Do not start coding directly from chat.
 - Commands orchestrate workflows; workflows orchestrate agents.
-- Do not bypass \\`.ai/workflows/*\\` or \\`.ai/agents/*\\`.
-- Use \\`/fix\\` for build or test failures.
-- Use \\`/refactor-safe\\` only when evidence exists.
+- Do not bypass .ai/workflows/* or .ai/agents/*.
+- Use /fix for build or test failures.
+- Use /refactor-safe only when evidence exists.
 
 ## OpenCode project commands
 - \\`/intake\\`

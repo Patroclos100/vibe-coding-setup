@@ -48,7 +48,10 @@
   "properties": {
     "policy_version": {
       "type": "string",
-      "const": "1.0"
+      "enum": [
+        "1.0",
+        "2.0"
+      ]
     },
     "runtime_states": {
       "type": "array",
@@ -126,6 +129,27 @@
       }
     },
     "escalation_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approval_requirements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "release_blocking_rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "escalation_triggers": {
       "type": "array",
       "items": {
         "type": "string"

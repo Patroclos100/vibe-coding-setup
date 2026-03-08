@@ -2,32 +2,30 @@
   "factory": "vibecoding-ai-factory",
   "pipelines": [
     {
-      "id": "product-init",
-      "workflow": ".ai/workflows/product-initialization.ai",
+      "id": "intake",
+      "workflow": ".ai/workflows/executable/intake.workflow.json",
       "stages": [
-        "intake",
-        "blueprint-selection",
-        "product-init"
+        "normalize-intake",
+        "select-blueprint",
+        "initialize-project"
       ]
     },
     {
       "id": "module-delivery",
-      "workflow": ".ai/workflows/module-planning.ai",
+      "workflow": ".ai/workflows/executable/build-module.workflow.json",
       "stages": [
-        "module-plan",
-        "build",
-        "test",
-        "review"
+        "plan-module",
+        "build-module",
+        "run-quality-gates"
       ]
     },
     {
       "id": "release-delivery",
-      "workflow": ".ai/workflows/release.ai",
+      "workflow": ".ai/workflows/executable/release.workflow.json",
       "stages": [
-        "release-review",
-        "approval",
-        "deploy",
-        "monitor"
+        "prepare-release",
+        "run-release-gates",
+        "record-deployment"
       ]
     }
   ]

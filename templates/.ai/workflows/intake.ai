@@ -3,3 +3,5 @@
 1. normalize request.
 2. record bounded scope.
 3. update current-task, plan, risks.
+
+Executable source of truth: `.ai/workflows/executable/intake.workflow.json`.

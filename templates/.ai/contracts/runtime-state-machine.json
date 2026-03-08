@@ -1,0 +1,226 @@
+{
+  "version": "1.0",
+  "initial_state": "intake_received",
+  "allowed_transitions": {
+    "intake_received": [
+      "blueprint_selected",
+      "blocked"
+    ],
+    "blueprint_selected": [
+      "product_initialized",
+      "blocked"
+    ],
+    "product_initialized": [
+      "module_plan_approved",
+      "review_pending",
+      "blocked"
+    ],
+    "module_plan_approved": [
+      "build_running",
+      "blocked"
+    ],
+    "build_running": [
+      "review_pending",
+      "tests_failed",
+      "fix_in_progress",
+      "blocked"
+    ],
+    "tests_failed": [
+      "fix_in_progress",
+      "blocked"
+    ],
+    "fix_in_progress": [
+      "build_running",
+      "review_pending",
+      "blocked"
+    ],
+    "review_pending": [
+      "release_ready",
+      "deployed",
+      "blocked"
+    ],
+    "release_ready": [
+      "deployed",
+      "monitoring_feedback_open",
+      "blocked"
+    ],
+    "deployed": [
+      "monitoring_feedback_open",
+      "blocked"
+    ],
+    "monitoring_feedback_open": [],
+    "blocked": [
+      "intake_received",
+      "module_plan_approved",
+      "build_running"
+    ],
+    "escalated": [],
+    "stopped": []
+  },
+  "states": {
+    "intake_received": {
+      "entry_conditions": [
+        "command accepted"
+      ],
+      "success_criteria": [
+        "request normalized"
+      ],
+      "failure_paths": [
+        "blocked"
+      ],
+      "termination_conditions": []
+    },
+    "blueprint_selected": {
+      "entry_conditions": [
+        "intake normalized"
+      ],
+      "success_criteria": [
+        "blueprint stored"
+      ],
+      "failure_paths": [
+        "blocked"
+      ],
+      "termination_conditions": []
+    },
+    "product_initialized": {
+      "entry_conditions": [
+        "blueprint selected"
+      ],
+      "success_criteria": [
+        "project and portfolio initialized"
+      ],
+      "failure_paths": [
+        "blocked"
+      ],
+      "termination_conditions": []
+    },
+    "module_plan_approved": {
+      "entry_conditions": [
+        "project initialized or intake completed"
+      ],
+      "success_criteria": [
+        "module plan persisted"
+      ],
+      "failure_paths": [
+        "blocked"
+      ],
+      "termination_conditions": []
+    },
+    "build_running": {
+      "entry_conditions": [
+        "module plan approved"
+      ],
+      "success_criteria": [
+        "build artifact written"
+      ],
+      "failure_paths": [
+        "tests_failed",
+        "fix_in_progress",
+        "blocked"
+      ],
+      "termination_conditions": []
+    },
+    "tests_failed": {
+      "entry_conditions": [
+        "quality gate blocker"
+      ],
+      "success_criteria": [
+        "failure recorded"
+      ],
+      "failure_paths": [
+        "fix_in_progress"
+      ],
+      "termination_conditions": []
+    },
+    "fix_in_progress": {
+      "entry_conditions": [
+        "retry authorized"
+      ],
+      "success_criteria": [
+        "repair completed"
+      ],
+      "failure_paths": [
+        "blocked"
+      ],
+      "termination_conditions": []
+    },
+    "review_pending": {
+      "entry_conditions": [
+        "quality gates passed"
+      ],
+      "success_criteria": [
+        "review package complete"
+      ],
+      "failure_paths": [
+        "blocked"
+      ],
+      "termination_conditions": []
+    },
+    "release_ready": {
+      "entry_conditions": [
+        "review accepted"
+      ],
+      "success_criteria": [
+        "release registry updated"
+      ],
+      "failure_paths": [
+        "blocked"
+      ],
+      "termination_conditions": []
+    },
+    "deployed": {
+      "entry_conditions": [
+        "release prepared"
+      ],
+      "success_criteria": [
+        "deployment state persisted"
+      ],
+      "failure_paths": [
+        "blocked"
+      ],
+      "termination_conditions": []
+    },
+    "monitoring_feedback_open": {
+      "entry_conditions": [
+        "deployment finished"
+      ],
+      "success_criteria": [
+        "monitoring window opened"
+      ],
+      "failure_paths": [],
+      "termination_conditions": [
+        "workflow complete"
+      ]
+    },
+    "blocked": {
+      "entry_conditions": [
+        "policy stop or missing input"
+      ],
+      "success_criteria": [],
+      "failure_paths": [],
+      "termination_conditions": [
+        "manual intervention required"
+      ]
+    },
+    "escalated": {
+      "entry_conditions": [
+        "policy escalation"
+      ],
+      "success_criteria": [],
+      "failure_paths": [],
+      "termination_conditions": [
+        "architect decision required"
+      ]
+    },
+    "stopped": {
+      "entry_conditions": [
+        "runtime stop decision"
+      ],
+      "success_criteria": [],
+      "failure_paths": [],
+      "termination_conditions": [
+        "run terminated"
+      ]
+    }
+  }
+}

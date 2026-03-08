@@ -1,0 +1,40 @@
+{
+  "workflow_id": "intake",
+  "description": "Normalize request, select blueprint, and initialize project.",
+  "start_state": "intake_received",
+  "terminal_state": "product_initialized",
+  "failure_terminal_state": "blocked",
+  "steps": [
+    {
+      "id": "normalize-intake",
+      "entry_state": "intake_received",
+      "success_state": "blueprint_selected",
+      "agent": "vc-orchestrator",
+      "action": "normalize_intake",
+      "required_artifacts": [
+        ".ai/state/current-task.json"
+      ]
+    },
+    {
+      "id": "select-blueprint",
+      "entry_state": "blueprint_selected",
+      "success_state": "product_initialized",
+      "agent": "vc-orchestrator",
+      "action": "select_blueprint",
+      "required_artifacts": [
+        ".ai/state/factory-state.json"
+      ]
+    },
+    {
+      "id": "initialize-project",
+      "entry_state": "product_initialized",
+      "success_state": "product_initialized",
+      "agent": "vc-orchestrator",
+      "action": "initialize_project",
+      "required_artifacts": [
+        ".ai/projects/project-portfolio.json",
+        ".factory/registries/projects.json"
+      ]
+    }
+  ]
+}

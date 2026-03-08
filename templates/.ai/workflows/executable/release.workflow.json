@@ -1,0 +1,39 @@
+{
+  "workflow_id": "release",
+  "description": "Prepare release candidate, execute release gates, and persist deployment state.",
+  "start_state": "review_pending",
+  "terminal_state": "monitoring_feedback_open",
+  "failure_terminal_state": "blocked",
+  "steps": [
+    {
+      "id": "prepare-release",
+      "entry_state": "release_ready",
+      "success_state": "deployed",
+      "agent": "vc-release-reviewer",
+      "action": "prepare_release",
+      "required_artifacts": [
+        ".factory/registries/releases.json"
+      ]
+    },
+    {
+      "id": "run-release-gates",
+      "entry_state": "deployed",
+      "success_state": "monitoring_feedback_open",
+      "agent": "vc-release-reviewer",
+      "action": "run_quality_gates",
+      "required_artifacts": [
+        ".ai/contracts/quality-gates.json"
+      ]
+    },
+    {
+      "id": "record-deployment",
+      "entry_state": "monitoring_feedback_open",
+      "success_state": "monitoring_feedback_open",
+      "agent": "vc-release-reviewer",
+      "action": "record_deployment_state",
+      "required_artifacts": [
+        ".factory/registries/deployment-states.json"
+      ]
+    }
+  ]
+}

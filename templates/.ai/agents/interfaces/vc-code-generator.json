@@ -1,0 +1,19 @@
+{
+  "agent_id": "vc-code-generator",
+  "purpose": "Produce implementation artifacts for a bounded module increment.",
+  "inputs": [
+    "project",
+    "module",
+    "plan"
+  ],
+  "required_artifacts": [
+    ".ai/state/plan.json"
+  ],
+  "expected_output_schema": ".ai/contracts/runtime-output.schema.json",
+  "success_signal": "status=passed",
+  "failure_signal": "status=failed",
+  "allowed_follow_up_actions": [
+    "continue"
+  ],
+  "escalation_behavior": "Escalate through the policy engine when failure class is non-retryable or missing input blocks execution."
+}

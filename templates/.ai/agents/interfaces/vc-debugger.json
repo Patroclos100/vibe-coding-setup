@@ -1,0 +1,19 @@
+{
+  "agent_id": "vc-debugger",
+  "purpose": "Repair a bounded failing increment after a failed check.",
+  "inputs": [
+    "failure_class",
+    "artifacts"
+  ],
+  "required_artifacts": [
+    ".ai/state/debug-log.json",
+    ".ai/state/checkpoints.json"
+  ],
+  "expected_output_schema": ".ai/contracts/runtime-output.schema.json",
+  "success_signal": "status=passed",
+  "failure_signal": "status=failed",
+  "allowed_follow_up_actions": [
+    "retry"
+  ],
+  "escalation_behavior": "Escalate through the policy engine when failure class is non-retryable or missing input blocks execution."
+}

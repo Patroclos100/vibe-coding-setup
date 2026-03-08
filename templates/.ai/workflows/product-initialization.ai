@@ -3,3 +3,5 @@
 1. initialize product metadata.
 2. seed project portfolio entry.
 3. activate factory state.
+
+Runtime initialization is executed through `.ai/workflows/executable/intake.workflow.json`.

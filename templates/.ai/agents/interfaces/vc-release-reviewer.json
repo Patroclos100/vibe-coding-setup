@@ -1,0 +1,22 @@
+{
+  "agent_id": "vc-release-reviewer",
+  "purpose": "Decide release readiness from quality and policy evidence.",
+  "inputs": [
+    "project",
+    "release_id",
+    "quality_results"
+  ],
+  "required_artifacts": [
+    ".factory/registries/quality-reports.json",
+    ".ai/contracts/execution-policy.json"
+  ],
+  "expected_output_schema": ".ai/contracts/runtime-output.schema.json",
+  "success_signal": "status=passed",
+  "failure_signal": "status=failed",
+  "allowed_follow_up_actions": [
+    "review",
+    "escalate",
+    "stop"
+  ],
+  "escalation_behavior": "Escalate through the policy engine when failure class is non-retryable or missing input blocks execution."
+}

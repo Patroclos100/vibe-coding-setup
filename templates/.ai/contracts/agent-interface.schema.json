@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "agent_id",
+    "purpose",
+    "inputs",
+    "required_artifacts",
+    "expected_output_schema",
+    "success_signal",
+    "failure_signal",
+    "allowed_follow_up_actions",
+    "escalation_behavior"
+  ],
+  "properties": {
+    "agent_id": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_output_schema": {
+      "type": "string"
+    },
+    "success_signal": {
+      "type": "string"
+    },
+    "failure_signal": {
+      "type": "string"
+    },
+    "allowed_follow_up_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "escalation_behavior": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

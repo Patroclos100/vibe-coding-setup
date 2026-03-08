@@ -1,5 +1,5 @@
 {
-  "policy_version": "1.0",
+  "policy_version": "2.0",
   "runtime_states": [
     "initialized",
     "intake_ready",
@@ -140,5 +140,26 @@
     "Escalate when architecture or dependency policy conflicts require a business decision.",
     "Escalate when rollback is impossible or failed.",
     "Escalate when security or safety policy conflicts block autonomous continuation."
+  ],
+  "approval_requirements": {
+    "release": [
+      "review_pending",
+      "quality gates passed"
+    ],
+    "deployment": [
+      "release approval present",
+      "rollback checkpoint available"
+    ]
+  },
+  "release_blocking_rules": [
+    "Block release when any blocker quality gate fails.",
+    "Block release when rollback readiness is not proven.",
+    "Block release when project registration is missing."
+  ],
+  "escalation_triggers": [
+    "Missing required input",
+    "Architecture violation",
+    "Dependency violation",
+    "Rollback failure"
   ]
 }

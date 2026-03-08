@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "workflows": {
+    "intake": ".ai/workflows/executable/intake.workflow.json",
+    "build-module": ".ai/workflows/executable/build-module.workflow.json",
+    "release": ".ai/workflows/executable/release.workflow.json"
+  }
+}

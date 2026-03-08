@@ -1,0 +1,22 @@
+{
+  "agent_id": "vc-orchestrator",
+  "purpose": "Coordinate intake, workflow dispatch, and deterministic execution hand-off.",
+  "inputs": [
+    "request",
+    "project",
+    "workflow_id"
+  ],
+  "required_artifacts": [
+    ".ai/contracts/execution-policy.json",
+    ".ai/contracts/runtime-state-machine.json",
+    ".ai/state/workflow-state.json"
+  ],
+  "expected_output_schema": ".ai/contracts/runtime-output.schema.json",
+  "success_signal": "status=passed",
+  "failure_signal": "status=failed",
+  "allowed_follow_up_actions": [
+    "continue",
+    "review"
+  ],
+  "escalation_behavior": "Escalate through the policy engine when failure class is non-retryable or missing input blocks execution."
+}

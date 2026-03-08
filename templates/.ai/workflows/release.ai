@@ -3,3 +3,5 @@
 1. prepare candidate.
 2. run quality gates.
 3. approve or block release.
+
+Executable source of truth: `.ai/workflows/executable/release.workflow.json`.
