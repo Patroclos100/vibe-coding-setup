@@ -1,29 +1,33 @@
 # Requirements
 
-## Goal
-Describe the target app outcome in one concise paragraph.
+## 1. Project goal
 
-## Users
-List the main user roles.
+What should this project achieve?
 
-## Core Features
-List version-1 features only.
+## 2. Target users
 
-## Non-Goals
-List what version 1 explicitly excludes.
+Who is this for?
 
-## UX Principles
-Keep flows simple, readable, and fast.
+## 3. Primary use cases
 
-## Technical Constraints
-Default stack:
-- SvelteKit
-- TypeScript
-- Tailwind
-- pnpm
+List the 3-5 most important user flows.
 
-## Quality Requirements
-- Build passes
-- TypeScript is clean
-- Core flow is understandable
-- No unnecessary frameworks are added
+## 4. In scope
+
+What is explicitly part of the current scope?
+
+## 5. Out of scope
+
+What is explicitly not part of the current scope?
+
+## 6. Constraints
+
+Include technical, organizational or UX constraints.
+
+## 7. Success criteria
+
+How do we know the result is good enough?
+
+## 8. Current priority
+
+What is the single most important next outcome?

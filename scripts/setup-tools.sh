@@ -68,6 +68,7 @@ ensure_dir "$AI_DIR/templates"
 ensure_dir "$AI_DIR/prompts"
 ensure_dir "$AI_DIR/specs"
 ensure_dir "$AI_DIR/review"
+ensure_dir "$AI_DIR/context"
 ensure_dir "$AI_DIR/agents"
 ensure_dir "$OPENCODE_DIR"
 
@@ -155,23 +156,35 @@ copy_template "$ROOT_DIR/templates/.ai/review/release-checklist.md" "$AI_DIR/rev
 copy_template "$ROOT_DIR/templates/.ai/prompts/feature-small.md" "$AI_DIR/prompts/feature-small.md"
 copy_template "$ROOT_DIR/templates/.ai/prompts/feature-large.md" "$AI_DIR/prompts/feature-large.md"
 copy_template "$ROOT_DIR/templates/.ai/prompts/refactor.md" "$AI_DIR/prompts/refactor.md"
+copy_template "$ROOT_DIR/templates/.ai/context/project-overview.md" "$AI_DIR/context/project-overview.md"
+copy_template "$ROOT_DIR/templates/.ai/context/current-status.md" "$AI_DIR/context/current-status.md"
+copy_template "$ROOT_DIR/templates/.ai/context/open-questions.md" "$AI_DIR/context/open-questions.md"
+copy_template "$ROOT_DIR/templates/.ai/context/known-issues.md" "$AI_DIR/context/known-issues.md"
+copy_template "$ROOT_DIR/templates/.ai/context/next-step.md" "$AI_DIR/context/next-step.md"
+copy_template "$ROOT_DIR/docs/00-product-scope.md" "$AI_DIR/PRODUCT-SCOPE.md"
+copy_template "$ROOT_DIR/docs/04-change-size-guide.md" "$AI_DIR/CHANGE-SIZE-GUIDE.md"
 
 cat > "$AI_DIR/agents/GSD-NOTES.md" <<'EOF2'
 # GSD Notes
 
-Use GSD mainly for larger work packages.
+Use GSD mainly for larger, clearly bounded work packages.
 
-Recommended project start:
-1. /gsd:new-project
-2. /gsd:discuss-phase 1
-3. /gsd:plan-phase 1
-4. /gsd:execute-phase 1
-5. /gsd:verify-work
+Good fit:
+- phased feature work
+- work packages that already have a written goal and scope
+- structured delivery after `/plan`
 
-For small changes prefer:
-- /plan
-- /build-small
-- /review
+Poor fit:
+- tiny UI fixes
+- single local bugfixes
+- changes that are easier as one `/build-small` step
+
+Recommended sequence:
+1. clarify the feature goal in `requirements.md`
+2. run `/plan`
+3. use GSD only if the work still spans multiple bounded sub-packages
+4. execute one sub-package at a time
+5. review after each phase
 EOF2
 
 cat <<'MSG'
@@ -180,12 +193,12 @@ Setup complete.
 
 Next steps:
 1. Open a new terminal or run: source ~/.zshrc
-2. Run: opencode
-3. In OpenCode: /connect -> GitHub Copilot
-4. Run: ./setup-opencode-commands.sh
+2. Run: ./setup-opencode-commands.sh
+3. Run: ./check-current-setup.sh
+4. Create a project with: ./new-ai-app.sh my-app ~/dev --minimal
 
 Standard directories:
 - ~/dev   for projects
-- ~/ai    for templates and prompts
+- ~/ai    for templates, rules and prompts
 - ~/tools for local setup assets
 MSG

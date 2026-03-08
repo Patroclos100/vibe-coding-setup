@@ -29,6 +29,10 @@ if [[ -z "$APP_NAME" ]]; then
   exit 1
 fi
 
+log() {
+  printf "\n==> %s\n" "$1"
+}
+
 require_cmd() {
   command -v "$1" >/dev/null 2>&1 || { echo "Missing required command: $1"; exit 1; }
 }
@@ -47,6 +51,13 @@ FALLBACK
   fi
 }
 
+append_if_missing() {
+  local line="$1"
+  local file="$2"
+  touch "$file"
+  grep -Fqs "$line" "$file" || echo "$line" >> "$file"
+}
+
 require_cmd node
 require_cmd pnpm
 require_cmd git
@@ -59,40 +70,55 @@ if [[ -e "$PROJECT_DIR" ]]; then
   exit 1
 fi
 
-echo "==> Creating project in $PROJECT_DIR"
+log "Creating project in $PROJECT_DIR"
 cd "$TARGET_DIR"
 
-pnpm create svelte@latest "$APP_NAME"
+if ! pnpm create svelte@latest "$APP_NAME" --template minimal --types ts --no-add-ons; then
+  cat <<'MSG'
+Project bootstrap failed.
+The Svelte CLI may have changed its prompts or flags.
+Update scripts/new-ai-app.sh to the current upstream CLI behavior instead of forcing broad workarounds.
+MSG
+  exit 1
+fi
+
 cd "$PROJECT_DIR"
 pnpm install
 
 if command -v npx >/dev/null 2>&1; then
-  npx sv add tailwindcss || true
+  log "Adding TailwindCSS via Svelte CLI"
+  if ! npx sv add tailwindcss; then
+    echo "Tailwind setup failed. Check the CLI output and rerun manually in the project directory."
+    exit 1
+  fi
 fi
 
 pnpm add -D prettier prettier-plugin-svelte eslint
 
-mkdir -p .ai/specs .ai/prompts .ai/review src/lib/components src/lib/utils
+mkdir -p .ai/specs .ai/prompts .ai/review .ai/context src/lib/components src/lib/utils src/lib/services
 
 copy_or_write "$HOME/ai/templates/opencode.json" "./opencode.json" '{"share":"disabled"}'
 copy_or_write "$HOME/ai/templates/AGENTS.md" "./AGENTS.md" '# AGENTS.md'
-copy_or_write "$HOME/ai/templates/requirements.md" "./requirements.md" '# requirements.md'
-copy_or_write "$HOME/ai/specs/architecture.md" "./.ai/specs/architecture.md" '# Architecture'
+copy_or_write "$HOME/ai/templates/requirements.md" "./requirements.md" '# Requirements'
+copy_or_write "$HOME/ai/specs/architecture.md" "./.ai/specs/architecture.md" '# Architecture Rules'
 copy_or_write "$HOME/ai/specs/ui-rules.md" "./.ai/specs/ui-rules.md" '# UI Rules'
-copy_or_write "$HOME/ai/review/release-checklist.md" "./.ai/review/release-checklist.md" '# Release Checklist'
-copy_or_write "$HOME/ai/prompts/feature-small.md" "./.ai/prompts/feature-small.md" 'Read AGENTS.md and requirements.md and implement only the smallest useful increment.'
-copy_or_write "$HOME/ai/prompts/feature-large.md" "./.ai/prompts/feature-large.md" 'Plan first. Then implement only phase 1.'
-copy_or_write "$HOME/ai/prompts/refactor.md" "./.ai/prompts/refactor.md" 'Find duplicated logic and complexity. Propose a minimal safe refactor.'
+copy_or_write "$HOME/ai/review/release-checklist.md" "./.ai/review/release-checklist.md" '# Review Checklist'
+copy_or_write "$HOME/ai/prompts/feature-small.md" "./.ai/prompts/feature-small.md" 'Implement only the smallest useful increment.'
+copy_or_write "$HOME/ai/prompts/feature-large.md" "./.ai/prompts/feature-large.md" 'Split the work into phases and implement only phase 1.'
+copy_or_write "$HOME/ai/prompts/refactor.md" "./.ai/prompts/refactor.md" 'Propose and implement only the smallest safe refactor.'
+copy_or_write "$HOME/ai/context/project-overview.md" "./.ai/context/project-overview.md" '# Project Overview'
+copy_or_write "$HOME/ai/context/current-status.md" "./.ai/context/current-status.md" '# Current Status'
+copy_or_write "$HOME/ai/context/open-questions.md" "./.ai/context/open-questions.md" '# Open Questions'
+copy_or_write "$HOME/ai/context/known-issues.md" "./.ai/context/known-issues.md" '# Known Issues'
+copy_or_write "$HOME/ai/context/next-step.md" "./.ai/context/next-step.md" '# Next Step'
 copy_or_write "$HOME/ai/templates/.env.example" "./.env.example" '# No secrets in git.'
 
-cat >> .gitignore <<'GITEOF'
-
-# AI / local tooling
-.env
-.env.*
-.direnv/
-.opencoderc
-GITEOF
+append_if_missing '' .gitignore
+append_if_missing '# AI / local tooling' .gitignore
+append_if_missing '.env' .gitignore
+append_if_missing '.env.*' .gitignore
+append_if_missing '.direnv/' .gitignore
+append_if_missing '.opencoderc' .gitignore
 
 cat > .envrc <<'ENVEOF'
 # Review before allowing: direnv allow
@@ -129,23 +155,38 @@ cat > src/lib/components/ui/button/Button.svelte <<'BTNEOF'
 BTNEOF
 
 if [[ "$MODE" == "ui" ]]; then
-  echo "==> UI mode selected"
+  log "UI mode selected"
   if command -v npx >/dev/null 2>&1; then
-    npx shadcn-svelte@latest init || true
-    npx shadcn-svelte@latest add button input dialog || true
+    if ! npx shadcn-svelte@latest init; then
+      echo "shadcn-svelte init failed. Continue with the base UI starter or rerun manually."
+    fi
+    if ! npx shadcn-svelte@latest add button input dialog; then
+      echo "shadcn-svelte component add failed. Continue with the base UI starter or rerun manually."
+    fi
   fi
 fi
 
 cat > README.md <<READEOF
 # $APP_NAME
 
+This project was bootstrapped with VibeCoding Basic.
+
 ## Golden path
-1. Review AGENTS.md
+1. Read AGENTS.md
 2. Fill requirements.md
-3. Review .ai/specs/architecture.md and ui-rules.md
-4. Start OpenCode and run /plan
-5. Implement via /build-small
-6. Run /review before broader changes
+3. Review .ai/specs/architecture.md and .ai/specs/ui-rules.md
+4. Fill .ai/context/project-overview.md
+5. Start OpenCode and run /plan
+6. Use /build-small for the first increment
+7. Run /review before broader follow-up work
+
+## Project memory
+Keep these files up to date:
+- .ai/context/project-overview.md
+- .ai/context/current-status.md
+- .ai/context/open-questions.md
+- .ai/context/known-issues.md
+- .ai/context/next-step.md
 
 ## Commands
 - pnpm dev
@@ -155,9 +196,10 @@ READEOF
 
 if [[ ! -d .git ]]; then
   git init
-  git add .
-  git commit -m "Initial AI-first app bootstrap" || true
 fi
+
+git add .
+git commit -m "Initial VibeCoding Basic app bootstrap" >/dev/null 2>&1 || true
 
 echo
 echo "Project created: $PROJECT_DIR"

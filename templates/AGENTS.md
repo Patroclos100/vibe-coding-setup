@@ -1,37 +1,65 @@
 # AGENTS.md
 
-## Objective
-Build production-grade software through a deterministic AI workflow.
+## Purpose
 
-## Workflow
-1. Analyse
-2. Plan
-3. Implement the smallest useful increment
-4. Review
+This repository is operated as a guided AI-assisted web project.
 
-Do not skip steps.
+The goal is not maximum autonomy. The goal is controlled, reviewable progress in small to medium increments.
 
-## Priorities
-Correctness > Simplicity > Speed
+## Working mode
 
-## Rules
-- Read `requirements.md` and relevant files first
-- Prefer small components and explicit data flow
-- Avoid new dependencies unless justified
-- Avoid hidden side effects and broad refactors
-- Keep changes narrow and reviewable
-- Use TypeScript consistently
+Always:
 
-## UI Rules
-- Minimal, readable, mobile-friendly
-- One primary action per screen where possible
-- Avoid noisy animations and unnecessary complexity
+1. read the relevant files first
+2. follow the repository rules
+3. prefer the smallest useful increment
+4. explain risks when scope grows
+5. keep project context in `.ai/context`
+6. review before broader follow-up work
 
-## Safety
-Never run destructive commands without explicit user approval.
+## Source of truth order
 
-## Done Criteria
-- Build succeeds
-- TypeScript is clean
-- UI behaves predictably
-- Code remains understandable to a new team member
+1. current codebase
+2. `requirements.md`
+3. `.ai/specs/*`
+4. `.ai/context/*`
+5. `.ai/review/*`
+
+Do not treat chat history as the primary source of truth when repository files say something else.
+
+## Scope discipline
+
+Prefer:
+
+- narrow file changes
+- explicit decisions
+- simple solutions
+- local readability
+- stable conventions
+
+Avoid:
+
+- hidden framework magic
+- speculative abstractions
+- large rewrites without phase cut
+- mixing feature, refactor and bugfix in one step
+- introducing advanced platform concepts unless explicitly required by the repo
+
+## Change-size behavior
+
+- Small change: usually `/build-small`
+- Medium change: `/plan` first, then phased implementation
+- Large change: must be split into phases, implement phase 1 only
+
+## Required outputs for implementation work
+
+When implementing:
+
+- state what you changed
+- keep file list short
+- mention checks run, if any
+- mention open risks if they remain
+
+## Escalation rule
+
+If the task drifts toward runtime orchestration, multi-agent logic, generic platform design or hidden automation, stop and recommend a simpler repo-first alternative.

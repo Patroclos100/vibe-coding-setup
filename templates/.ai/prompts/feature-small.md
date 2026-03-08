@@ -1,8 +1,9 @@
-Read `AGENTS.md`, `requirements.md` and the affected files first.
+Read `AGENTS.md`, `requirements.md`, `.ai/specs/*` and only the files relevant to the requested change.
 
 Then:
-1. create a short implementation plan
-2. implement only the smallest useful increment
-3. keep the changes narrow and readable
-4. run check/build if available
-5. list changed files briefly
+1. restate the smallest useful outcome
+2. list the affected files briefly
+3. implement only that smallest useful increment
+4. avoid unrelated refactors
+5. run a check/build if available
+6. list changed files and remaining risks briefly

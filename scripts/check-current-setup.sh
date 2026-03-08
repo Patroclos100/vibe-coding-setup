@@ -1,26 +1,42 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
-
-ok() { printf "${GREEN}OK${NC}  %s\n" "$1"; }
-warn() { printf "${YELLOW}WARN${NC} %s\n" "$1"; }
-fail() { printf "${RED}FAIL${NC} %s\n" "$1"; }
-section() { printf "\n== %s ==\n" "$1"; }
-
 FAILURES=0
 WARNINGS=0
+
+section() {
+  printf "\n== %s ==\n" "$1"
+}
+
+ok() {
+  printf "[OK] %s\n" "$1"
+}
+
+warn() {
+  printf "[WARN] %s\n" "$1"
+}
+
+fail() {
+  printf "[FAIL] %s\n" "$1"
+}
 
 check_cmd() {
   local cmd="$1"
   local label="${2:-$1}"
   if command -v "$cmd" >/dev/null 2>&1; then
-    ok "$label found: $(command -v "$cmd")"
+    ok "$label available"
   else
     fail "$label missing"
+    FAILURES=$((FAILURES+1))
+  fi
+}
+
+check_dir() {
+  local dir="$1"
+  if [[ -d "$dir" ]]; then
+    ok "Directory exists: $dir"
+  else
+    fail "Directory missing: $dir"
     FAILURES=$((FAILURES+1))
   fi
 }
@@ -30,34 +46,24 @@ check_file() {
   if [[ -f "$file" ]]; then
     ok "File exists: $file"
   else
-    warn "File missing: $file"
-    WARNINGS=$((WARNINGS+1))
-  fi
-}
-
-check_dir() {
-  local dir="$1"
-  if [[ -d "$dir" ]]; then
-    ok "Directory exists: $dir"
-  else
-    warn "Directory missing: $dir"
-    WARNINGS=$((WARNINGS+1))
+    fail "File missing: $file"
+    FAILURES=$((FAILURES+1))
   fi
 }
 
 check_vscode_ext() {
   local ext="$1"
-  if command -v code >/dev/null 2>&1 && code --list-extensions | grep -qi "^${ext}$"; then
-    ok "VS Code extension installed: $ext"
+  if code --list-extensions 2>/dev/null | grep -qi "^${ext}$"; then
+    ok "VS Code extension present: $ext"
   else
     warn "VS Code extension missing: $ext"
     WARNINGS=$((WARNINGS+1))
   fi
 }
 
-section "Core CLI tools"
+section "CLI tools"
+check_cmd git git
 check_cmd brew Homebrew
-check_cmd git Git
 check_cmd node Node.js
 check_cmd pnpm pnpm
 check_cmd rg ripgrep
@@ -75,7 +81,7 @@ check_dir "$HOME/tools"
 check_dir "$HOME/.config/opencode"
 check_dir "$HOME/.config/opencode/commands"
 
-section "Global templates"
+section "Global templates and guides"
 check_file "$HOME/ai/templates/AGENTS.md"
 check_file "$HOME/ai/templates/requirements.md"
 check_file "$HOME/ai/templates/.env.example"
@@ -86,6 +92,21 @@ check_file "$HOME/ai/review/release-checklist.md"
 check_file "$HOME/ai/prompts/feature-small.md"
 check_file "$HOME/ai/prompts/feature-large.md"
 check_file "$HOME/ai/prompts/refactor.md"
+check_file "$HOME/ai/context/project-overview.md"
+check_file "$HOME/ai/context/current-status.md"
+check_file "$HOME/ai/context/open-questions.md"
+check_file "$HOME/ai/context/known-issues.md"
+check_file "$HOME/ai/context/next-step.md"
+check_file "$HOME/ai/PRODUCT-SCOPE.md"
+check_file "$HOME/ai/CHANGE-SIZE-GUIDE.md"
+
+section "OpenCode commands"
+check_file "$HOME/.config/opencode/commands/plan.md"
+check_file "$HOME/.config/opencode/commands/build-small.md"
+check_file "$HOME/.config/opencode/commands/build-large.md"
+check_file "$HOME/.config/opencode/commands/review.md"
+check_file "$HOME/.config/opencode/commands/fix.md"
+check_file "$HOME/.config/opencode/commands/status.md"
 
 section "VS Code extensions"
 check_vscode_ext "GitHub.copilot"

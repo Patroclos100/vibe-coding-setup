@@ -1,35 +1,79 @@
-# VibeCoding Framework
+# VibeCoding Basic
 
-A reproducible macOS setup for AI-first app development with:
+VibeCoding Basic ist ein bewusst einfaches, repo-first AI-Development-Basissystem für kleine bis mittlere Web-Projekte.
 
-- Visual Studio Code
-- GitHub Copilot Pro+
-- OpenCode via `/connect`
-- Get Shit Done (GSD)
-- SvelteKit + TypeScript + Tailwind + pnpm
+Es richtet sich an IT-nahe Anwender ohne klassische Programmiererfahrung, die mit klaren Schritten, lokalen Regeln und AI-Unterstützung arbeiten wollen.
 
-This repository bundles the full setup, operational scripts, project templates, and usage documentation in one place.
+## Wofür diese Basic Version gedacht ist
 
-## Target audience
+Enthalten:
 
-This framework is designed for IT professionals with limited or no programming experience who want a controlled, production-oriented AI development workflow.
+- Web-first Standard-Setup mit SvelteKit, TypeScript, Tailwind und pnpm
+- Arbeiten in Visual Studio Code
+- GitHub Copilot Abo über OpenCode `/connect`
+- OpenCode-Kommandos für Planen, kleine Änderungen, größere Änderungen und Review
+- repo-lokale Templates, Regeln und Projektkontext
+- leichte, nachvollziehbare Setup- und Helper-Skripte
+- Unterstützung für GSD / get-shit-done bei größeren, klar abgegrenzten Arbeitspaketen
 
-## Architecture at a glance
+Bewusst **nicht** enthalten:
 
-- **VS Code** = editor and terminal
-- **Copilot Pro+** = model access and IDE assistance
-- **OpenCode** = agentic execution layer
-- **GSD** = spec-driven process layer
-- **Project templates** = deterministic starting point for every app
+- Mobile-Factory oder native App-Build-Logik
+- Runtime Engine oder Policy Controller
+- Multi-Agent-Plattform
+- autonome Delivery-Pipeline
+- Multi-Framework- oder Multi-Stack-Abstraktion
+- schwer nachvollziehbare Hintergrundlogik
 
-## Repository structure
+## Für wen es passt
+
+Geeignet für:
+
+- IT-Fachleute
+- Product Owner
+- technische Projektleiter
+- Prozess- und Fachspezialisten
+- technisch versierte Nicht-Programmierer
+- Einsteiger mit solider Tool-Affinität
+
+Vorausgesetzt werden:
+
+- Terminal-Grundverständnis
+- VS-Code-Nutzung
+- Git-Grundlagen
+- grobes Lesen von Logs und Fehlermeldungen
+- Bereitschaft, strukturiert statt frei-chaotisch mit AI zu arbeiten
+
+Nicht geeignet für:
+
+- komplette Computer-Laien
+- Entwickler mit Bedarf an maximaler technischer Freiheit
+- Teams mit Fokus auf native Mobile-Apps oder komplexe Plattformarchitekturen
+- Nutzer, die vollautonome Softwareentwicklung ohne Review erwarten
+
+## Golden Path
+
+1. `docs/00-product-scope.md` lesen
+2. `docs/01-setup-and-operations.md` ausführen
+3. `scripts/check-current-setup.sh` laufen lassen
+4. `scripts/new-ai-app.sh my-app ~/dev --minimal` ausführen
+5. Im Projekt `requirements.md` und `.ai/context/project-overview.md` pflegen
+6. In OpenCode mit `/plan` starten
+7. Kleine Änderungen mit `/build-small` umsetzen
+8. Vor Commit oder Übergabe `/review` verwenden
+
+## Repository-Struktur
 
 ```text
 .
 ├── README.md
 ├── docs/
+│   ├── 00-product-scope.md
 │   ├── 01-setup-and-operations.md
-│   └── 02-usage-playbook.md
+│   ├── 02-usage-playbook.md
+│   ├── 03-workflows.md
+│   ├── 04-change-size-guide.md
+│   └── 05-project-memory.md
 ├── scripts/
 │   ├── Brewfile
 │   ├── setup-tools.sh
@@ -43,76 +87,35 @@ This framework is designed for IT professionals with limited or no programming e
     ├── .env.example
     └── .ai/
         ├── specs/
-        │   ├── architecture.md
-        │   └── ui-rules.md
         ├── prompts/
-        │   ├── feature-small.md
-        │   ├── feature-large.md
-        │   └── refactor.md
-        └── review/
-            └── release-checklist.md
+        ├── review/
+        └── context/
 ```
 
-## Installation order
+## Standard-Tools
 
-1. Read `docs/01-setup-and-operations.md`
-2. Run `scripts/setup-tools.sh`
-3. Run `scripts/setup-opencode-commands.sh`
-4. Validate with `scripts/check-current-setup.sh`
-5. Create a new project with `scripts/new-ai-app.sh`
+- Visual Studio Code
+- GitHub Copilot Abo mit OpenCode `/connect`
+- OpenCode
+- gsd-build / get-shit-done
+- SvelteKit + TypeScript + Tailwind + pnpm
 
-## Quickstart
+## Arbeitsmodell
 
-```bash
-cd scripts
-chmod +x setup-tools.sh setup-opencode-commands.sh check-current-setup.sh new-ai-app.sh
-./setup-tools.sh
-./setup-opencode-commands.sh
-./check-current-setup.sh
-./new-ai-app.sh my-app ~/dev --minimal
-```
+- Repo-first statt Chat-first
+- kleine bis mittlere, reviewbare Änderungen
+- klare Schritte vor maximaler Flexibilität
+- Templates und Projektkontext im Repo halten
+- AI assistiert, Mensch entscheidet und prüft
 
-Then inside the created project:
+## Wann auf etwas „Advanced“ gewechselt werden sollte
 
-```bash
-cd ~/dev/my-app
-pnpm dev
-opencode
-```
+Wechsle nicht wegen Neugier, sondern erst wenn das Vorhaben real braucht:
 
-In OpenCode:
+- mehrere Frameworks oder Plattformen gleichzeitig
+- komplexe Build-/Release-Steuerung
+- Runtime-Orchestrierung oder Policies
+- umfassende Team-Automatisierung
+- hochgradig autonome Agentenabläufe
 
-```text
-/connect
-```
-
-Choose **GitHub Copilot**.
-
-## Golden path for every project
-
-1. Fill `requirements.md`
-2. Review `.ai/specs/architecture.md`
-3. Review `.ai/specs/ui-rules.md`
-4. Start OpenCode and run `/plan`
-5. Use `/build-small`
-6. Run `/review`
-7. Only use `/build-large` for larger, already-understood changes
-
-## Design principles
-
-- Correctness over speed
-- Small, reviewable increments
-- Minimal tool count
-- Project-local guardrails
-- No hidden magic
-
-## Important operational notes
-
-- Copilot is the default model provider via OpenCode `/connect`
-- A separate Claude API key is **not** required for the baseline workflow
-- `opencode.json` is stored **per project** for reproducibility
-- GSD is recommended for larger feature work, not for every tiny change
-
-## Hand-off intent
-
-This repository is meant to be cloned and handed to additional team members as the single source of truth for setup, scripts, templates, and operating model.
+Dann ist dieses Repo nicht zu klein, sondern bewusst nicht dafür gebaut.
