@@ -6,3 +6,11 @@ fix
 refactor-safe
 review-release
 status
+factory-create-product
+factory-select-blueprint
+factory-plan-modules
+factory-build-module
+quality-run-gates
+release-prepare
+deploy-release
+monitor-factory

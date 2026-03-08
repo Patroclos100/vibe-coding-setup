@@ -1,0 +1,5 @@
+# Blueprint Selection Workflow
+
+1. compare request against blueprints.
+2. select closest compatible blueprint.
+3. record rationale and required modules.

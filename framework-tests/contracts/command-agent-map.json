@@ -6,5 +6,13 @@
   "fix": "vc-orchestrator",
   "refactor-safe": "vc-orchestrator",
   "review-release": "vc-orchestrator",
-  "status": "vc-orchestrator"
+  "status": "vc-orchestrator",
+  "factory-create-product": "factory-orchestrator-agent",
+  "factory-select-blueprint": "factory-orchestrator-agent",
+  "factory-plan-modules": "factory-orchestrator-agent",
+  "factory-build-module": "factory-orchestrator-agent",
+  "quality-run-gates": "qa-supervisor-agent",
+  "release-prepare": "release-manager-agent",
+  "deploy-release": "deployment-agent",
+  "monitor-factory": "observability-agent"
 }

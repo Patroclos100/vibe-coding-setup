@@ -11,7 +11,17 @@
     "vc-test-generator": ".opencode/prompts/vc-test-generator.md",
     "vc-debugger": ".opencode/prompts/vc-debugger.md",
     "vc-refactorer": ".opencode/prompts/vc-refactorer.md",
-    "vc-release-reviewer": ".opencode/prompts/vc-release-reviewer.md"
+    "vc-release-reviewer": ".opencode/prompts/vc-release-reviewer.md",
+    "factory-orchestrator-agent": ".opencode/prompts/vc-orchestrator.md",
+    "release-manager-agent": ".opencode/prompts/vc-release-reviewer.md",
+    "qa-supervisor-agent": ".opencode/prompts/vc-release-reviewer.md",
+    "product-manager-agent": ".opencode/prompts/vc-planner.md",
+    "system-architect-agent": ".opencode/prompts/vc-architecture-validator.md",
+    "module-registry-agent": ".opencode/prompts/vc-dependency-manager.md",
+    "deployment-agent": ".opencode/prompts/vc-orchestrator.md",
+    "observability-agent": ".opencode/prompts/vc-planner.md",
+    "blueprint-designer-agent": ".opencode/prompts/vc-planner.md",
+    "compliance-agent": ".opencode/prompts/vc-architecture-validator.md"
   },
   "design_mirrors": {
     "intake-normalizer": ".ai/prompts/intake-normalizer.md",

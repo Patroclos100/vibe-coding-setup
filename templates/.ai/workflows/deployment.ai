@@ -1,0 +1,5 @@
+# Deployment Workflow
+
+1. verify deployment preconditions.
+2. execute deployment.
+3. record rollback path.

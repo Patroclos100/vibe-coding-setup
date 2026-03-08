@@ -1,0 +1,29 @@
+# AI Factory Definition
+
+name: VibeCoding AI Factory
+mission: deterministic, reproducible software production for non-classical developers using commands, workflows, agents, and policy-controlled execution.
+
+factory_layers:
+  - portfolio
+  - product
+  - blueprint
+  - module
+  - delivery
+  - release
+  - deployment
+  - observability
+
+operating_rules:
+  - Commands declare intent only.
+  - Workflows map intent to deterministic stages.
+  - Agents operate within explicit responsibilities and escalation rules.
+  - Policy artifacts authorize next action, retry, replan, rollback, stop, or escalation.
+  - Quality gates determine release readiness.
+  - All meaningful progress updates state and registry artifacts.
+
+required_artifacts:
+  - .ai/projects/project-portfolio.json
+  - .ai/factory/pipeline-registry.json
+  - .ai/modules/module-registry.ai
+  - .ai/releases/release-registry.json
+  - .ai/state/workflow-state.json

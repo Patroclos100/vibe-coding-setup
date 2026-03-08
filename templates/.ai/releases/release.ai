@@ -1,0 +1,15 @@
+# Release Management
+
+release_stages:
+  - candidate-build
+  - quality-gates
+  - approval
+  - deploy
+  - monitor
+
+required_evidence:
+  - test coverage result
+  - architecture compliance result
+  - dependency risk result
+  - rollback readiness
+  - monitoring plan

@@ -56,6 +56,14 @@ required_files = [
     TEMPLATES / '.ai/contracts/prompt-registry.json',
     TEMPLATES / '.opencode/prompts/vc-runtime-rules.md',
     TEMPLATES / '.opencode/prompts/vc-orchestrator.md',
+    TEMPLATES / '.ai/factory/factory.ai',
+    TEMPLATES / '.ai/contracts/quality.ai',
+    TEMPLATES / '.ai/workflows/release.ai',
+    TEMPLATES / '.ai/agents/factory-orchestrator-agent.ai',
+    TEMPLATES / '.ai/blueprints/saas-webapp.ai',
+    TEMPLATES / '.ai/modules/module-registry.ai',
+    TEMPLATES / '.ai/projects/project-portfolio.json',
+    TEMPLATES / '.ai/releases/release-registry.json',
     FRAMEWORK_TESTS / 'contracts/command-agent-map.json',
 ]
 for path in required_files:
@@ -69,6 +77,7 @@ decision_validator = validator_for(TEMPLATES / '.ai/contracts/execution-decision
 # Validate state JSON files individually and aggregate workflow state against schema
 state_dir = TEMPLATES / '.ai/state'
 state_files = [
+    'factory-state.json',
     'current-task.json',
     'plan.json',
     'risks.json',
@@ -182,7 +191,7 @@ for manifest_path in sorted((FRAMEWORK_TESTS / 'fixtures').glob('*/fixture.manif
 # Validate opencode config references
 config = load_json(TEMPLATES / 'opencode.json')
 instructions = config.get('instructions', [])
-for item in ['.ai/contracts/*.md', '.ai/specs/*.md', '.ai/workflows/*.md', '.ai/agents/*.md', '.ai/review/*.md', '.ai/stacks/*/README.md', '.ai/contracts/*.json', '.ai/state/*.json']:
+for item in ['.ai/contracts/*.md', '.ai/specs/*.md', '.ai/workflows/*.md', '.ai/agents/*.md', '.ai/review/*.md', '.ai/stacks/*/README.md', '.ai/contracts/*.json', '.ai/state/*.json', '.ai/factory/*.md', '.ai/factory/*.json', '.ai/blueprints/*.ai', '.ai/modules/*.ai', '.ai/projects/*.json', '.ai/releases/*.ai']:
     warn(item in instructions, f'opencode.json missing recommended instruction glob: {item}')
 
 # Validate strict JSON runtime prompt rules

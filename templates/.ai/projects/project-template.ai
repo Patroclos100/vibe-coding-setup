@@ -1,0 +1,9 @@
+# Project Template
+
+required_metadata:
+  - project_id
+  - product_name
+  - blueprint_id
+  - target_stack
+  - module_plan
+  - release_strategy

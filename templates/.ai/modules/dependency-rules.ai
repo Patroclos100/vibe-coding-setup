@@ -1,0 +1,7 @@
+# Module Dependency Rules
+
+- dependencies must be declared in the module plan before implementation
+- cross-module dependencies must use explicit interfaces
+- circular dependencies are blockers
+- high-risk dependencies require compliance review
+- runtime-only dependencies must not leak into shared module contracts

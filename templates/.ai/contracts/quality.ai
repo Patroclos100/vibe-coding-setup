@@ -1,0 +1,26 @@
+# Quality Gates
+
+## Classification
+- blocker
+- warning
+- auto-fixable
+- manual-review-required
+
+## Gates
+1. test-coverage
+   - type: blocker
+   - rule: new or changed business logic must have automated coverage evidence
+2. lint-static-checks
+   - type: blocker
+   - rule: mandatory stack checks must pass
+3. architecture-compliance
+   - type: blocker
+   - rule: layer boundaries, module contracts, and blueprint constraints must hold
+4. dependency-risk
+   - type: blocker for prohibited/high-risk additions, warning for medium-risk additions
+5. release-approval
+   - type: manual-review-required
+   - rule: release-manager-agent and qa-supervisor-agent must agree that evidence is sufficient
+6. rollback-criteria
+   - type: blocker
+   - rule: deployment requires defined rollback trigger and restoration path

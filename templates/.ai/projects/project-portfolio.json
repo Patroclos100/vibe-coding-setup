@@ -1,0 +1,5 @@
+{
+  "factory": "vibecoding-ai-factory",
+  "projects": [],
+  "default_blueprint_selection_policy": "closest-compatible-blueprint"
+}

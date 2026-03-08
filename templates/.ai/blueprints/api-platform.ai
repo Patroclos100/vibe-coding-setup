@@ -1,0 +1,15 @@
+# Blueprint: api-platform
+
+purpose: API-first platform with service contracts, auth, and versioned integrations
+blueprint_id: api-platform
+recommended_modules:
+  - api-gateway
+  - service-core
+  - auth
+  - webhooks
+  - client-sdk
+mandatory_quality_gates:
+  - architecture-compliance
+  - dependency-risk
+  - test-coverage
+  - release-approval

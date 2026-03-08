@@ -136,3 +136,41 @@ Work is complete only when all of the following are true:
 
 ## Escalation Rule
 If the request conflicts with specs, architecture, dependency policy, or done criteria, stop and report the conflict explicitly. Do not resolve it by improvisation.
+
+
+## AI Factory Extension
+
+### Factory-level source of truth
+Also load and obey:
+- `.ai/factory/*.md`
+- `.ai/factory/*.json`
+- `.ai/blueprints/*.ai`
+- `.ai/modules/*.ai`
+- `.ai/projects/*.json`
+- `.ai/releases/*.ai`
+
+### Additional command categories
+- factory commands initialize products, blueprints, pipelines, and portfolio state
+- module commands plan, build, register, and review reusable modules
+- quality commands enforce architecture, dependency, and release gates
+- release commands prepare, approve, and deploy releases
+- monitoring commands record post-release signals and feedback loops
+
+### Additional factory agents
+- Product Manager Agent
+- System Architect Agent
+- Factory Orchestrator Agent
+- QA Supervisor Agent
+- Release Manager Agent
+- Blueprint Designer Agent
+- Module Registry Agent
+- Compliance Agent
+- Deployment Agent
+- Observability Agent
+
+### Factory operating constraints
+- Commands still declare intent only; policy decides the next action.
+- Factory orchestration must preserve determinism across projects and modules.
+- Blueprint selection is mandatory before product initialization when a matching blueprint exists.
+- A module must not be built as bespoke code if a compatible registered module already exists.
+- Release and deployment require explicit gate results recorded in `.ai/releases/` and `.ai/state/`.

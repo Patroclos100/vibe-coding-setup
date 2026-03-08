@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["factory", "active_project", "active_blueprint", "active_pipeline", "quality_status"],
+  "properties": {
+    "factory": {"type": "string"},
+    "active_project": {"type": ["string", "null"]},
+    "active_blueprint": {"type": ["string", "null"]},
+    "active_pipeline": {"type": ["string", "null"]},
+    "quality_status": {"type": "string", "enum": ["unknown", "in_progress", "passed", "warning", "blocked"]},
+    "last_release": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

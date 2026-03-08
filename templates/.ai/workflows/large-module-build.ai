@@ -1,0 +1,5 @@
+# Large Module Build Workflow
+
+1. split module into phases.
+2. execute phase 1 only.
+3. record remaining phases.

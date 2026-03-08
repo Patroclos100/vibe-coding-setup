@@ -1,0 +1,15 @@
+# Blueprint: saas-webapp
+
+purpose: multi-user SaaS web application with web frontend, API, auth, billing-ready boundaries
+blueprint_id: saas-webapp
+recommended_modules:
+  - web-frontend
+  - api-core
+  - auth
+  - tenant-management
+  - observability
+mandatory_quality_gates:
+  - architecture-compliance
+  - dependency-risk
+  - test-coverage
+  - release-approval

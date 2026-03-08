@@ -15,7 +15,13 @@
     ".ai/stacks/*/stack.json",
     ".ai/contracts/*.json",
     ".ai/state/*.json",
-    ".opencode/prompts/vc-runtime-rules.md"
+    ".opencode/prompts/vc-runtime-rules.md",
+    ".ai/factory/*.md",
+    ".ai/factory/*.json",
+    ".ai/blueprints/*.ai",
+    ".ai/modules/*.ai",
+    ".ai/projects/*.json",
+    ".ai/releases/*.ai"
   ],
   "permission": {
     "bash": "allow",

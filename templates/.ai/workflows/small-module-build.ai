@@ -1,0 +1,5 @@
+# Small Module Build Workflow
+
+1. implement bounded module increment.
+2. generate tests.
+3. run mandatory checks.

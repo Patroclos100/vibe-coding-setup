@@ -1,0 +1,33 @@
+{
+  "modules": [
+    {
+      "module_id": "web-frontend",
+      "version": "1.0.0",
+      "status": "approved",
+      "reuse_policy": "preferred",
+      "blueprints": [
+        "saas-webapp",
+        "internal-tool"
+      ]
+    },
+    {
+      "module_id": "api-core",
+      "version": "1.0.0",
+      "status": "approved",
+      "reuse_policy": "preferred",
+      "blueprints": [
+        "saas-webapp",
+        "api-platform"
+      ]
+    },
+    {
+      "module_id": "orchestrator",
+      "version": "1.0.0",
+      "status": "approved",
+      "reuse_policy": "preferred",
+      "blueprints": [
+        "ai-agent-system"
+      ]
+    }
+  ]
+}

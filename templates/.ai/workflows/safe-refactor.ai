@@ -1,0 +1,5 @@
+# Safe Refactor Workflow
+
+1. verify behavior lock.
+2. perform bounded refactor.
+3. rerun regression checks.

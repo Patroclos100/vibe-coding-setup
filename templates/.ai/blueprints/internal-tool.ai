@@ -1,0 +1,14 @@
+# Blueprint: internal-tool
+
+purpose: internal workflow tool with admin UI, reporting, and controlled integrations
+blueprint_id: internal-tool
+recommended_modules:
+  - admin-ui
+  - workflow-engine
+  - reporting
+  - integration-adapters
+mandatory_quality_gates:
+  - architecture-compliance
+  - dependency-risk
+  - test-coverage
+  - release-approval

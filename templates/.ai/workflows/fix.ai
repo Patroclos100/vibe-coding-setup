@@ -1,0 +1,5 @@
+# Fix Workflow
+
+1. reproduce failure.
+2. classify failure.
+3. apply minimal repair and rerun checks.

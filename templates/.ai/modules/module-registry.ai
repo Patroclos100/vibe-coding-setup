@@ -1,0 +1,19 @@
+# Module Registry
+
+registry_purpose: catalog reusable modules and prevent duplicate bespoke implementation.
+
+module_metadata_model:
+  module_id: stable unique identifier
+  version: semantic version string
+  status: draft | approved | deprecated
+  owner_agent: responsible agent role
+  interfaces: exported contracts and dependencies
+  compatibility: allowed blueprints and stacks
+  quality_evidence: checks, tests, review record
+  reuse_policy: mandatory | preferred | optional | forbidden
+
+reuse_rules:
+  - If a compatible approved module exists, prefer reuse over bespoke implementation.
+  - New module creation requires explicit reason in the module plan.
+  - Breaking changes require a new major version and compatibility review.
+  - Deprecated modules must not be selected for new products.

@@ -1,0 +1,34 @@
+{
+  "factory": "vibecoding-ai-factory",
+  "pipelines": [
+    {
+      "id": "product-init",
+      "workflow": ".ai/workflows/product-initialization.ai",
+      "stages": [
+        "intake",
+        "blueprint-selection",
+        "product-init"
+      ]
+    },
+    {
+      "id": "module-delivery",
+      "workflow": ".ai/workflows/module-planning.ai",
+      "stages": [
+        "module-plan",
+        "build",
+        "test",
+        "review"
+      ]
+    },
+    {
+      "id": "release-delivery",
+      "workflow": ".ai/workflows/release.ai",
+      "stages": [
+        "release-review",
+        "approval",
+        "deploy",
+        "monitor"
+      ]
+    }
+  ]
+}

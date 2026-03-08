@@ -1,72 +1,51 @@
-# VibeCoding Framework
+# VibeCoding AI Factory
 
-AI-first development framework for IT professionals without classical programming experience.
+AI-first development framework for IT professionals without classical programming experience, evolved into a deterministic **AI Factory**.
 
-This repository is the hardened version of the framework described and iteratively improved in the implementation work packages. It is designed to move from a prompt-led setup to an **AI development runtime framework** with explicit contracts, structured workflow state, stack-aware validation, and framework-level self-tests.
-
-## What this framework does
-
-The framework defines how AI coding agents should:
-
-- normalize a request into a bounded implementation task
-- choose the correct workflow
-- write and update structured runtime state
-- generate code and tests within a controlled scope
-- run mandatory validation checks from the active stack pack
-- repair failures through a bounded self-healing loop
-- perform release review before work is considered done
-
-## What changed across the hardening phases
-
-The current repository includes all previously implemented changes, not just the latest JSON hardening work.
-
-### Phase 1 — State architecture hardening
-- canonical runtime state moved to `templates/.ai/state/*.json`
-- human-readable `.md` state files kept as summaries only
-- state-management, check-matrix, and acceptance-traceability contracts added
-
-### Phase 2 — Runtime prompt and command enforcement
-- `.opencode/commands/*` strengthened to rely on the output schema contract
-- runtime prompt layer separated from design-layer mirrors
-- command behavior made more deterministic
-
-### Phase 3 — Stack packs and validation gates
-- stack packs added for `sveltekit-web`, `fastapi-api`, and `python-automation`
-- each stack now defines mandatory checks in `stack.json`
-
-### Phase 4 — Framework-level validation and smoke tests
-- `framework-tests/` introduced for framework self-verification
-- `scripts/validate-framework.py` added for template, contract, and smoke validation
-- scaffold flow made offline-safe enough for local smoke testing
-
-### Phase 5 — Machine-readable runtime contracts
-- `runtime-output.schema.json` added and enforced by shared runtime rules
-- `workflow-state.schema.json` added for the aggregate state registry
-- `prompt-registry.json` added to reduce prompt drift
-- `vc-runtime-rules.md` introduced as the shared runtime source of truth
-
-### Phase 6 — Framework regression hardening
-- golden-run traces added for API, web, and automation scenarios
-- negative test scenarios added for schema and state validation
-- fixture manifests and command-to-agent contracts added
-
-### Phase 7 — Documentation hardening
-- runtime documentation separated from framework-test documentation
-- design decisions documented, including the move to JSON contracts
-- architecture, quickstart, extension model, and contributor flow clarified for third parties
+This repository preserves the hardened VibeCoding runtime and extends it into a factory-level operating model with:
+- factory orchestration across projects and modules
+- blueprint-based product creation
+- module registry and reuse rules
+- release, deployment, and monitoring workflows
+- governance, quality gates, and rollback criteria
 
 ## Core execution chain
 
-`Command -> Workflow -> Agent Contract -> State Update -> Mandatory Checks -> Review`
+`Command -> Workflow -> Agent Contract -> State Update -> Quality Gate -> Review -> Release`
+
+## Factory execution chain
+
+`Idea -> Intake -> Blueprint Selection -> Product Initialization -> Module Plan -> Build -> Test -> Review -> Release -> Deploy -> Monitor`
 
 ## Repository map
 
 - `templates/` runtime payload copied into generated projects
-- `templates/.opencode/` runtime commands and runtime prompts
-- `templates/.ai/` contracts, specs, workflows, stacks, and canonical runtime state
+- `templates/.ai/factory/` factory orchestration, governance, portfolio, and pipeline rules
+- `templates/.ai/blueprints/` reusable product blueprints
+- `templates/.ai/modules/` module registry, metadata model, reuse policy, and dependency rules
+- `templates/.ai/projects/` project portfolio and initialization state
+- `templates/.ai/releases/` release, deployment, and monitoring artifacts
+- `templates/.opencode/commands/` deterministic runtime commands, now including factory/module/release commands
 - `framework-tests/` assets that verify the framework itself
 - `scripts/` setup, scaffolding, and validation tools
 - `docs/` end-user and contributor documentation
+
+## What was added in the AI Factory migration
+
+### Existing runtime retained
+- command-driven workflow execution
+- machine-readable runtime state and execution policy
+- stack-aware validation
+- framework self-tests and smoke tests
+
+### New factory capabilities
+- multi-project factory orchestration
+- blueprint catalog for standardized product creation
+- module registry with dependency and reuse controls
+- factory-level agent hierarchy
+- quality gates with blocker/warning/manual-review classification
+- release, deployment, and monitoring workflows
+- project/release/state registries for deterministic traceability
 
 ## Runtime features vs framework-test features
 
@@ -77,6 +56,11 @@ Examples:
 - `templates/.opencode/commands/*`
 - `templates/.opencode/prompts/*`
 - `templates/.ai/contracts/*`
+- `templates/.ai/factory/*`
+- `templates/.ai/blueprints/*`
+- `templates/.ai/modules/*`
+- `templates/.ai/projects/*`
+- `templates/.ai/releases/*`
 - `templates/.ai/state/*`
 - `templates/.ai/stacks/*`
 
@@ -93,5 +77,6 @@ Examples:
 - Read `docs/quickstart.md` for first use
 - Read `docs/architecture.md` for the system model
 - Read `docs/design-decisions.md` for rationale behind JSON contracts and prompt separation
+- Read `docs/09-ai-factory-overview.md` for the factory operating model
 - Read `docs/runtime/overview.md` to understand the runtime flow
 - Read `docs/framework-testing/overview.md` to understand framework self-verification

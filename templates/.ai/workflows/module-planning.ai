@@ -1,0 +1,5 @@
+# Module Planning Workflow
+
+1. derive modules from blueprint.
+2. check registry for reuse.
+3. record build vs reuse decisions.

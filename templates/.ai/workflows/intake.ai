@@ -1,0 +1,5 @@
+# Intake Workflow
+
+1. normalize request.
+2. record bounded scope.
+3. update current-task, plan, risks.

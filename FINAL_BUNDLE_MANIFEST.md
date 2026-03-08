@@ -64,3 +64,14 @@ This bundle consolidates the final state of the framework after all implementati
 - `scripts/new-ai-app.sh`
 - `scripts/setup-opencode-commands.sh`
 - `scripts/setup-tools.sh`
+
+
+## AI Factory migration additions
+- templates/.ai/factory/*
+- templates/.ai/blueprints/*
+- templates/.ai/modules/*
+- templates/.ai/projects/*
+- templates/.ai/releases/*
+- templates/.ai/state/factory-state.json
+- templates/.opencode/commands/factory-*.md, quality-run-gates.md, release-prepare.md, deploy-release.md, monitor-factory.md
+- MIGRATION_SUMMARY.md

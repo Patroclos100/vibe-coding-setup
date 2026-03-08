@@ -1,0 +1,5 @@
+# Release Workflow
+
+1. prepare candidate.
+2. run quality gates.
+3. approve or block release.

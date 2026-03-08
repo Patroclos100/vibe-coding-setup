@@ -1,0 +1,15 @@
+# Blueprint: ai-agent-system
+
+purpose: agentic workflow system with orchestration, memory/state, tools, and governance
+blueprint_id: ai-agent-system
+recommended_modules:
+  - orchestrator
+  - agent-runtime
+  - tool-adapters
+  - evaluation
+  - observability
+mandatory_quality_gates:
+  - architecture-compliance
+  - dependency-risk
+  - test-coverage
+  - release-approval

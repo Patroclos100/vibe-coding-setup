@@ -1,0 +1,5 @@
+# Architecture Review Workflow
+
+1. check blueprint fit.
+2. check module boundaries.
+3. record debt or approval.
