@@ -144,7 +144,6 @@ check_json_expr "$HOME/.config/opencode/opencode.json" '.agent["vc-orchestrator"
 check_json_expr "$HOME/.config/opencode/opencode.json" '.agent["vc-planner"].mode == "subagent"' 'vc-planner configured globally'
 
 section "VS Code extensions"
-check_vscode_ext "GitHub.copilot"
 check_vscode_ext "GitHub.copilot-chat"
 check_vscode_ext "svelte.svelte-vscode"
 check_vscode_ext "bradlc.vscode-tailwindcss"
