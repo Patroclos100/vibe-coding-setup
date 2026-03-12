@@ -266,13 +266,13 @@ validate_args() {
 bootstrap_sveltekit() {
   log "==> Bootstrapping SvelteKit app"
   require_cmd node
-  require_cmd "$PACKAGE_MANAGER"
+  require_cmd npx
 
-  local create_args=(create svelte@latest "$APP_NAME" --types ts --template minimal)
+  local create_args=(create "$APP_NAME" --types ts --template minimal)
   if [[ "$RUN_INSTALL" -eq 0 ]]; then
-    "$PACKAGE_MANAGER" "${create_args[@]}" --no-install
+    npx sv@latest "${create_args[@]}" --no-install
   else
-    "$PACKAGE_MANAGER" "${create_args[@]}"
+    npx sv@latest "${create_args[@]}"
   fi
 }
 
